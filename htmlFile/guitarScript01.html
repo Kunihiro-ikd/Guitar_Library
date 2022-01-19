@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    
+  <title>My first Vue app</title>
+  <!-- vue.sj のインポート-->
+  <script src="https://unpkg.com/vue"></script>
+  <!-- bootStrap インポート-->
+  <!--
+      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+  -->
+
+</head>
+<body onload="makeCodehtml()">
+    <div id="app">
+        {{ message }}
+    </div>
+    <p class="bg-slategray">区切り</p>
+    <div id="test1"></div>
+    <p class="bg-slategray">区切り</p>
+    <div id="test2">
+        <p>コード test2</p>
+    </div>
+
+
+
+    <script>
+        var app = new Vue({
+            el: "#app",
+            data: {
+                message: "vue sample : this is vue "
+            }
+        }
+        );
+    </script>
+    <script src="../jsFile/script.js"></script>
+</body>
+<style>
+    .bg-slategray{
+        background: slategray;
+    }
+    .guitar-cell{
+        background: grey;
+        /* width: 1rem; */
+    }
+    .guitar-cell-off{
+        background-color: hotpink;
+    }
+    .text-red{
+        color: red;
+        background-color: red;
+    }
+
+    .guitar_table_point{
+        display: flex;
+        align-items: center; /* 垂直中心 */
+        justify-content: center; /* 水平中心 */
+    }
+    .guitar_table_point:before, .guitar_table_point:after{
+        border-top: 1px solid;
+        content: "";
+        width: 1.4rem; /* 線の長さ */
+    }
+    .guitar_table_point:before{
+        margin-right: .3rem; /* 文字の右隣 */
+    }
+    .guitar_table_point:after{
+        margin-left: .3rem; /* 文字の左隣 */
+    }
+
+</style>
+
+</html>
