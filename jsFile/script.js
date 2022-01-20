@@ -301,12 +301,13 @@
         // TODO ここにセルをクリックしたときに配列を作成するコードを使う
         var root = 'root';
         var root_sound = [set_string, set_flet];
-        this.allGuitarCodeList(root_sound);
+        console.log(allGuitarCodeList(root_sound));
+        //var got_codes_list = allGuitarCodeList(root_sound);
 
         //クリックしたセルから、作成すべきコードの添字配列を作成する
         // this.makeAllCodeConfiguration();
-        console.log('makeCode>>>>>asdfasdf>>>>>>>>');
-        console.log(makeCode(root_code));
+        // console.log('makeCode>>>>>asdfasdf>>>>>>>>');
+        // console.log(makeCode(root_code));
 
 
         var got_codes_list = [[[0,10],[2,3],[3,4],[1,3]], [[1,5],[2,3],[3,4]]];
@@ -330,7 +331,7 @@
                     string_list[string_num_exist] = 1;
                 }
             }
-            console.log("string_list>>>" + string_list);
+            // console.log("string_list>>>" + string_list);
 
             //他の関数から値を受け取る
             // var codes = this.makeAllCodeConfiguration();
@@ -340,7 +341,7 @@
             // creating all cells
 
 
-            console.log('flet_max', flet_max, 'flet_min', flet_min);
+            // console.log('flet_max', flet_max, 'flet_min', flet_min);
             for (var i = 0; i < 6; i++) {
                 // creates a table row
                 var row = document.createElement("tr");
@@ -408,22 +409,53 @@
 
     //ギターのフレットをクリックした時、クリックしたセルの弦とフレットの序数を取得
     //入力から、コードを押さえるための strings　の添え字を出力 
-    //入力　例root_code_position = [2,4]
+    //入力　例root_code_position = [2,4], kind_of_code　= [0, 4, 5] major
     //出力　例[  [[1,2], [2,3], [3,4]],  [[2,3],[3,4],[4,5],[5,6] ]]
     //クリックしたセルから
-    function allGuitarCodeList(root_sound){
-        var root = root_sound;
-        //絶対音を作成
-        var absolute_root = this.absoluteSoundNum(root);
+    function allGuitarCodeList(root_sound, kind_of_code)
+    {
+        console.log('allGuitarCodeList', root_sound);
+        //変数の初期化
+        var all_string_flet_list = strings;//存在するフレットと弦のリスト
+        var absolute_root        = this.absoluteSoundNum(root_sound);//root 絶対音を作成
+        var absolute_root_origin = absolute_root % 12;
+        var code                 = [0, 4, 5];
+        //TODO 今後major以外の配列も作成できるようにする
+        // var code          = kind_of_code;こんな感じで渡す
+        
+        //2.押さえ幅 flet_widthに flet_width_added[1] - flet_width_added[0] を入れる
+        // flet_width_added[最小フレット, 最大フレット]
+        var flet_width           = -1;
+        var flet_width_added     = [0, 0];
+        var flet_width_limit     = [root_sound[1] - 4, root_sound[1] + 4]
 
-        var all_string_flet_list = strings;
+        //3.条件式で使う:構成音がすべてそろっているか数える
+        var judge_included_sound = [];
+        for(var i = 0; i<code.length; i++){
+            judge_include_sound +=[0];
+        }
+        //3.条件式で使う:構成音がすべてそろっているか数える 加えたら1, 加えてないなら0
+        //let success_include_sound = judge_include_sound.filter(function(x){return x===1}).length;
+        // success_include_sound == judge_included_sound.length;
+        
+        //TODO absolute_root から構成音の配列(上の出力にある)を作成
 
-        for(var a_string of all_string_flet_list){
-            for(var a_flet of a_string){
-                if(a_flet == absolute_root){
+        //配列の条件：
+            // 1.構成音であること
+            // 2.押さえた最大・最小のフレット幅が5であること ただし開放弦は除く
+            // 3.作成したいコードの構成音がすべてそろっていること
+
+
+        for(var a_string of all_string_flet_list){//弦[ [弦, フレット], [弦, フレット], ... ]
+            for(var a_string_flet of a_string){//フレット[弦, フレット]
+                if( (a_string_flet[1] != 0) || (flet_width_limit[0] < a_string_flet[1]) && (a_string_flet[1] < flet_width_limit[0]) ){//押さえられないフレットはスキップ
+                    console.log('continue>>フレット>>>', a_string_flet[1]);
+                    continue;
+                }
+                if(absoluteSoundNum(a_string_flet) % absolute_root_origin == code[0]){//TODO codeのなかのどれかの数と同じであればコードを作成
+
 
                 }
-
 
             }
         }
