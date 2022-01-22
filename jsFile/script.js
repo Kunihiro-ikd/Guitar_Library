@@ -1,19 +1,20 @@
 // //各フレットの数値の組み合わせ キーはがデフォルト
     // TODO 何フレットまで作るべき？
     // E, F#, F, G, G#, A, A#, B, C, C#, D, D#
-    const string1 = [36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49];
-    const string2 = [31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44];
-    const string3 = [27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40];
-    const string4 = [22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35];
-    const string5 = [17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30];
-    const string6 = [12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25];
+
+    const string1 = [[1,0],[1,1],[1,2],[1,3],[1,4],[1,5],[1,6],[1,7],[1,8],[1,9],[1,10],[1,11],[1,12],[1,13],[1,14],[1,15],[1,16],[1,17],[1,18],[1,19],[1,20]];
+    const string2 = [[2,0],[2,1],[2,2],[2,3],[2,4],[2,5],[2,6],[2,7],[2,8],[2,9],[2,10],[2,11],[2,12],[2,13],[2,14],[2,15],[2,16],[2,17],[2,18],[2,19],[2,20]];
+    const string3 = [[3,0],[3,1],[3,2],[3,3],[3,4],[3,5],[3,6],[3,7],[3,8],[3,9],[3,10],[3,11],[3,12],[3,13],[3,14],[3,15],[3,16],[3,17],[3,18],[3,19],[3,20]];
+    const string4 = [[4,0],[4,1],[4,2],[4,3],[4,4],[4,5],[4,6],[4,7],[4,8],[4,9],[4,10],[4,11],[4,12],[4,13],[4,14],[4,15],[4,16],[4,17],[4,18],[4,19],[4,20]];
+    const string5 = [[5,0],[5,1],[5,2],[5,3],[5,4],[5,5],[5,6],[5,7],[5,8],[5,9],[5,10],[5,11],[5,12],[5,13],[5,14],[5,15],[5,16],[5,17],[5,18],[5,19],[5,20]];
+    const string6 = [[6,0],[6,1],[6,2],[6,3],[6,4],[6,5],[6,6],[6,7],[6,8],[6,9],[6,10],[6,11],[6,12],[6,13],[6,14],[6,15],[6,16],[6,17],[6,18],[6,19],[6,20]];
     const strings = [
-                    [36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49],
-                    [31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44],
-                    [27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40],
-                    [22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35],
-                    [17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30],
-                    [12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25]
+        string1,
+        string2,
+        string3,
+        string4,
+        string5,
+        string6
     ];
 
     //コード 全種類作成したい
@@ -24,9 +25,9 @@
     const mainor_seventh_code    = [0, 3, 5, 7];
 
 
-    //E, F, G
+    //E, F, G...,D
+    //E基準
     const key = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
-
 
     const parameter ={
         root: 0,
@@ -35,7 +36,6 @@
         //音の最高低音と
         from_to: [12, 47]
     };
-
 
 
     function run(parameter)
@@ -66,8 +66,8 @@
         console.log('makeAllCodeConfiguration>>>>>>>>>>>>>>>>');
         const major_code = [0, 4, 5];
         const from_to = [12, 47];
-        var code_array =[];
-        var code = [];
+        let code_array =[];
+        let code = [];
         // var list_code =[];
                 for(var num=from_to[0] + (root % 12); num<=from_to[1]; num = num + 12){
                         //初期化
@@ -127,7 +127,6 @@
                     list.push(num + major_code[num2]);
                 }
                 code_array.push(list);
-                //last code
             if(num + 12 >from_to[1]){
                 console.log(from_to[1], num, 'break');
                 break;
@@ -139,10 +138,6 @@
     function callConsole(){
         console.log('clicked');
     }
-
-
-
-
 
     //構成音から抑えるべきフレッドと弦のリストを作成
     function makeCode(list_test)
@@ -159,32 +154,15 @@
         // const  got_codes = [[13, 17, 18], [25, 29, 30], [37, 41, 42]];
         const got_codes = list_test;
 
-        /**
-        // E, F#, F, G, G#, A, A#, B, C, C#, D, D#
-        const string1 = [36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49];
-        const string2 = [31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44];
-        const string3 = [27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40];
-        const string4 = [22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35];
-        const string5 = [17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30];
-        const string6 = [12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25];
-         * */
-        console.log(got_codes, 'got_codes');
-        console.log(first_string, first_string.length );
         const flet_num = first_string.length;
          var all_code_component = [];
 
          for(var num1 = 0; num1<got_codes.length; num1++){
              var root = got_codes[num1][0];
-             console.log(root, 'root');
-             console.log(got_codes.length, 'got_codes.length');
 
              //all_strings のデータからコードになりうるデータを探す
              // 弦
              for(var num2 = 0; num2<6; num2++){
-                //  if(num2 <= 2){
-                //      break;
-                //  }
-                 // フレット
                  for(var num3 = 0; num3<all_strings[0].length; num3++){
                     let searching_flet = all_strings[num2][num3];
                     console.log('searching_flet', searching_flet, num3);
@@ -199,22 +177,15 @@
                             //フレット
                             for(var num5_third = num3; num5_third < num3 + 4; num5_third++){
                                 for(var num6_got_code = 0; num6_got_code < got_codes.length; num6_got_code++){
-
-                                    console.log(num1, 'num1');
-                                    console.log(num6_got_code, 'num6_got_code');
-                                    console.log(num4_second, 'num4_second');
-                                    console.log(num5_third, 'num5_third');
                                     if(got_codes[num1][num6_got_code] == all_strings[num4_second][num5_third]){
                                         code_comp.push([num4_second, num5_third]);
                                         // console.log([num4_second, num5_third], code_comp, 'ifのなか');
                                     }
                                 }
                             }
-                            // let add_flet = ;
                         }
                         all_code_component.push(code_comp);
                     }
-                    // console.log(all_code_component, );
                  }
              }
          }
@@ -301,16 +272,14 @@
         // TODO ここにセルをクリックしたときに配列を作成するコードを使う
         var root = 'root';
         var root_sound = [set_string, set_flet];
-        console.log(allGuitarCodeList(root_sound));
-        //var got_codes_list = allGuitarCodeList(root_sound);
 
         //クリックしたセルから、作成すべきコードの添字配列を作成する
         // this.makeAllCodeConfiguration();
-        // console.log('makeCode>>>>>asdfasdf>>>>>>>>');
         // console.log(makeCode(root_code));
 
-
-        var got_codes_list = [[[0,10],[2,3],[3,4],[1,3]], [[1,5],[2,3],[3,4]]];
+        // var got_codes_list = [[[0,10],[2,3],[3,4],[1,3]], [[1,5],[2,3],[3,4]]];
+        var got_codes_list = allGuitarCodeList([set_string, set_flet], 'major');
+        console.log('got_codes_list>>>>', got_codes_list);
         for(var got_code = 0; got_code < got_codes_list.length; got_code++){
 
             //flet の最大値最小値の取得
@@ -338,17 +307,12 @@
 
             var tbl = document.createElement("table");
             var tblBody = document.createElement("tbody");
-            // creating all cells
-
 
             // console.log('flet_max', flet_max, 'flet_min', flet_min);
             for (var i = 0; i < 6; i++) {
                 // creates a table row
                 var row = document.createElement("tr");
                 for (var j = flet_min; j <= flet_max; j++) {
-                    // Create a <td> element and a text node, make the text
-                    // node the contents of the <td>, and put the <td> at
-                    // the end of the table row
                     var cell = document.createElement("td");
                     var div  = document.createElement("div");
                     //callConsole
@@ -370,8 +334,6 @@
                     row.appendChild(cell);
                     row.classList.add("guitar-cell")
                 }
-                    //guitar_table_point
-                    // add the row to the end of the table body
                     tblBody.appendChild(row);
             }
 
@@ -386,21 +348,18 @@
                 num_row.appendChild(num_cell);
             }
             tblBody.appendChild(num_row);
-            
-            
-            // put the <tbody> in the <table>
-                tbl.appendChild(tblBody);
-                var aElement = document.getElementById("test2");
-                // aElement.remove();
-                aElement.appendChild(tbl);
+            tbl.appendChild(tblBody);
+            var aElement = document.getElementById("test2");
+            //TODO 新しいコードの生成時には前のコードはすべて削除する
+            // aElement.remove();
+            aElement.appendChild(tbl);
 
-
-                //区切り
-                var part = document.createElement("p");
-                var part_text = document.createTextNode("区切り");
-                part.appendChild(part_text);
-                part.classList.add("text-red");
-                aElement.appendChild(part);
+            //区切り　実装段階では消す
+            var part = document.createElement("p");
+            var part_text = document.createTextNode("区切り");
+            part.appendChild(part_text);
+            part.classList.add("text-red");
+            aElement.appendChild(part);
         }
         // return []
     }
@@ -411,106 +370,125 @@
     //入力から、コードを押さえるための strings　の添え字を出力 
     //入力　例root_code_position = [2,4], kind_of_code　= [0, 4, 5] major
     //出力　例[  [[1,2], [2,3], [3,4]],  [[2,3],[3,4],[4,5],[5,6] ]]
-    //クリックしたセルから
     function allGuitarCodeList(root_sound, kind_of_code)
     {
-        console.log('allGuitarCodeList', root_sound);
+
+        console.log('allGuitarCodeList', root_sound, kind_of_code);
         //変数の初期化
-        var all_string_flet_list = strings;//存在するフレットと弦のリスト
-        var absolute_root        = this.absoluteSoundNum(root_sound);//root 絶対音を作成
-        var absolute_root_origin = absolute_root % 12;
-        var code                 = [0, 4, 5];
+        const code_root_position   = [Number(root_sound[0]), Number(root_sound[1])];
+        const all_string_flet_list = strings;//存在するフレットと弦のリスト
+        const absolute_root        = absoluteSoundNum(root_sound);//root 絶対音を作成
+        const absolute_root_origin = absolute_root % 12;
+
         //TODO 今後major以外の配列も作成できるようにする
+        const code                 = [0, 4, 5];
         // var code          = kind_of_code;こんな感じで渡す
-        
-        //2.押さえ幅 flet_widthに flet_width_added[1] - flet_width_added[0] を入れる
-        // flet_width_added[最小フレット, 最大フレット]
-        var flet_width           = -1;
-        var flet_width_added     = [0, 0];
-        var flet_width_limit     = [root_sound[1] - 4, root_sound[1] + 4]
 
-        //3.条件式で使う:構成音がすべてそろっているか数える
-        var judge_included_sound = [];
-        for(var i = 0; i<code.length; i++){
-            judge_include_sound +=[0];
-        }
-        //3.条件式で使う:構成音がすべてそろっているか数える 加えたら1, 加えてないなら0
-        //let success_include_sound = judge_include_sound.filter(function(x){return x===1}).length;
-        // success_include_sound == judge_included_sound.length;
-        
-        //TODO absolute_root から構成音の配列(上の出力にある)を作成
+        const search_string_limit_max = code_root_position[1] - 1;
+        const search_string_limit_min = 0;
+        const search_flet_limit_max   = ((code_root_position[1] + 4) > 20) ? 20 : code_root_position[1] + 4;
+        const search_flet_limit_min   = ((code_root_position[1] - 4) < 0)  ?  0 : code_root_position[1] - 4;
 
-        //配列の条件：
-            // 1.構成音であること
-            // 2.押さえた最大・最小のフレット幅が5であること ただし開放弦は除く
-            // 3.作成したいコードの構成音がすべてそろっていること
-
-
-        for(var a_string of all_string_flet_list){//弦[ [弦, フレット], [弦, フレット], ... ]
-            for(var a_string_flet of a_string){//フレット[弦, フレット]
-                if( (a_string_flet[1] != 0) || (flet_width_limit[0] < a_string_flet[1]) && (a_string_flet[1] < flet_width_limit[0]) ){//押さえられないフレットはスキップ
-                    console.log('continue>>フレット>>>', a_string_flet[1]);
-                    continue;
+        //コードの構成に使えそうなポジションの洗い出し
+        let all_code_positions = [[], [], [], [], [], []];
+        console.log('コードの構成に使えそうなポジションの洗い出し');
+        for(let a_search_string = search_string_limit_max;search_string_limit_min < a_search_string; a_search_string--){//弦[ [弦, フレット], [弦, フレット], ... ] TODO ここどうする？？
+            for(let a_search_flet = search_flet_limit_min;  a_search_flet <  search_flet_limit_max; a_search_flet++){//フレット[弦, フレット]
+                let judge_code_component = false
+                for(let code_component = 0; code_component < code.length; code_component++){
+                    //TODO string1の値が追加されていない・・？
+                    console.log((absoluteSoundNum(all_string_flet_list[a_search_string][a_search_flet]) %12 )  == ((absolute_root_origin + code[code_component]) % 12));
+                    if((absoluteSoundNum(all_string_flet_list[a_search_string][a_search_flet]) %12 )  == ((absolute_root_origin + code[code_component]) % 12)){
+                        judge_code_component = true;
+                    } 
                 }
-                if(absoluteSoundNum(a_string_flet) % absolute_root_origin == code[0]){//TODO codeのなかのどれかの数と同じであればコードを作成
-
-
+                if(judge_code_component){
+                    //codeのなかのどれかの数と同じであればコードを配列に作成
+                    // console.log('all_string_flet_list[a_search_string][a_search_flet]', all_string_flet_list[a_search_string][a_search_flet]);
+                    // console.log(all_code_positions);
+                    all_code_positions[a_search_string].push(all_string_flet_list[a_search_string][a_search_flet]);
                 }
-
             }
         }
 
+        let result_allGuitarCodeList = [];
 
+        //配列の格納
+        console.log('all_code_positions', all_code_positions);
+        const string1_position=  all_code_positions[0];
+        const string2_position=  all_code_positions[1];
+        const string3_position=  all_code_positions[2];
+        const string4_position=  all_code_positions[3];
+        const string5_position=  all_code_positions[4];
+        const string6_position=  all_code_positions[5];
 
-        return [ [[2,4], [3,5], [4,5]], [[1,2], [2,3], [3,4]] ]
+        
+        console.log('コードになりえるポジションのすべての組み合わせ');
+        console.log(string1_position, string2_position, string6_position);
+        
+        //コードになりえるポジションのすべての組み合わせ
+        for(let string1_variable = 0; string1_variable < string1_position.length; string1_variable++){
+            for(let string2_variable = 0; string2_variable < string2_position.length; string2_variable++){
+                for(let string3_variable = 0; string3_variable < string3_position.length; string3_variable++){
+                    for(let string4_variable = 0; string4_variable < string4_position.length; string4_variable++){
+                        for(let string5_variable = 0; string5_variable < string5_position.length; string5_variable++){
+                            let fifth_string_position_combination = [
+                                all_code_positions[0][string1_position],
+                                all_code_positions[1][string2_position],
+                                all_code_positions[2][string3_position],
+                                all_code_positions[3][string4_position],
+                                all_code_positions[4][string5_position]
+                            ];
+                            console.log('fifth_string_position_combination', fifth_string_position_combination);
+                            for(let string6_variable = 0; string6_variable < string6_position.length; string6_variable++){
+                                let sixth_string_position = all_code_positions[0][string6_position];
+                                // TODO ここにフィルター
+                                // root, 3rd, 5thi などのすべての構成要素がそろっているか確認する
+                                result_allGuitarCodeList += (fifth_string_position_combination + sixth_string_position);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        console.log('result_allGuitarCodeList', result_allGuitarCodeList);
+
+        return result_allGuitarCodeList;
     }
 
     //絶対的な音の高さを出力 Eを基準に
-    // [0,0] 6弦1フレット　→　12
-    // [1,2] 5弦3フレット　→　19
-    // [2,3] 6弦3フレット　→　24
+    // [0,0] 1弦1フレット　→　36
+    // [1,2] 2弦3フレット　→　33
+    // [6,0] 2弦3フレット　→　12
     // 入力　[0,0]
     // 出力  12
     function absoluteSoundNum(root_position)
     {
-        var root        = 12;
-        var string_root = root_position[0];
-        var flet_root   = root_position[1];
+        const root        = 12;
+        const string_root = root_position[0];
+        const flet_root   = root_position[1];
 
-        var result = -1;
+        let absoluteSoundNum_result = 0;
 
         switch (string_root){
-            case 0:
-                result = result + 0 + flet_root;
-                break;
             case 1:
-                result = result + 5 + flet_root;
+                absoluteSoundNum_result = absoluteSoundNum_result + 24 + flet_root;
                 break;
             case 2:
-                result = result + 10 + flet_root;
+                absoluteSoundNum_result = absoluteSoundNum_result + 19 + flet_root;
                 break;
             case 3:
-                result = result + 15 + flet_root;
+                absoluteSoundNum_result = absoluteSoundNum_result + 14 + flet_root;
                 break;
             case 4:
-                result = result + 19 + flet_root;
+                absoluteSoundNum_result = absoluteSoundNum_result + 9 + flet_root;
                 break;
             case 5:
-                result = result + 24 + flet_root;
+                absoluteSoundNum_result = absoluteSoundNum_result + 5 + flet_root;
+                break;
+            case 6:
+                absoluteSoundNum_result = absoluteSoundNum_result + 0 + flet_root;
                 break;
         }
-
-        return result;
-    }
-
-    function callConsole()
-    {
-        console.log('clicked');
-    }
-
-    //filter
-    function filterCode(code_list, config)
-    {
-        var codes = this.makeAllCodeConfiguration();
-        return []
+        return absoluteSoundNum_result;
     }
