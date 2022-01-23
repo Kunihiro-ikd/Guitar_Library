@@ -257,8 +257,8 @@
         console.log('クリックされたmakeCodeHtmlGuitar>>>>>>', this.cell_id);
 
         //クリックされたセルのid の設定
-        var set_string = -1;
-        var set_flet   = -1;
+        let set_string = -1;
+        let set_flet   = -1;
         if(this.cell_id.length == 5){
             // フレットが2桁
             set_string = this.cell_id.substring(2, 3);
@@ -270,15 +270,12 @@
         }
         
         // TODO ここにセルをクリックしたときに配列を作成するコードを使う
-        var root = 'root';
-        var root_sound = [set_string, set_flet];
+        let root = 'root';
+        let root_sound = [set_string, set_flet];
 
-        //クリックしたセルから、作成すべきコードの添字配列を作成する
-        // this.makeAllCodeConfiguration();
-        // console.log(makeCode(root_code));
-
+        //TODO クリックしたセルから、作成すべきコードの添字配列を作成する
         // var got_codes_list = [[[0,10],[2,3],[3,4],[1,3]], [[1,5],[2,3],[3,4]]];
-        var got_codes_list = allGuitarCodeList([set_string, set_flet], 'major');
+        let got_codes_list = allGuitarCodeList([set_string, set_flet], 'major');
         console.log('got_codes_list>>>>', got_codes_list);
         for(var got_code = 0; got_code < got_codes_list.length; got_code++){
 
@@ -300,10 +297,6 @@
                     string_list[string_num_exist] = 1;
                 }
             }
-            // console.log("string_list>>>" + string_list);
-
-            //他の関数から値を受け取る
-            // var codes = this.makeAllCodeConfiguration();
 
             var tbl = document.createElement("table");
             var tblBody = document.createElement("tbody");
@@ -372,7 +365,6 @@
     //出力　例[  [[1,2], [2,3], [3,4]],  [[2,3],[3,4],[4,5],[5,6] ]]
     function allGuitarCodeList(root_sound, kind_of_code)
     {
-
         console.log('allGuitarCodeList', root_sound, kind_of_code);
         //変数の初期化
         const code_root_position   = [Number(root_sound[0]), Number(root_sound[1])];
@@ -394,6 +386,7 @@
         console.log('コードの構成に使えそうなポジションの洗い出し');
         for(let a_search_string = search_string_limit_max;search_string_limit_min < a_search_string; a_search_string--){//弦[ [弦, フレット], [弦, フレット], ... ] TODO ここどうする？？
             for(let a_search_flet = search_flet_limit_min;  a_search_flet <  search_flet_limit_max; a_search_flet++){//フレット[弦, フレット]
+                //音階が和音になるか確認
                 let judge_code_component = false
                 for(let code_component = 0; code_component < code.length; code_component++){
                     //TODO string1の値が追加されていない・・？
@@ -472,22 +465,22 @@
 
         switch (string_root){
             case 1:
-                absoluteSoundNum_result = absoluteSoundNum_result + 24 + flet_root;
+                absoluteSoundNum_result = 24 + flet_root;
                 break;
             case 2:
-                absoluteSoundNum_result = absoluteSoundNum_result + 19 + flet_root;
+                absoluteSoundNum_result = 19 + flet_root;
                 break;
             case 3:
-                absoluteSoundNum_result = absoluteSoundNum_result + 14 + flet_root;
+                absoluteSoundNum_result = 14 + flet_root;
                 break;
             case 4:
-                absoluteSoundNum_result = absoluteSoundNum_result + 9 + flet_root;
+                absoluteSoundNum_result = 9 + flet_root;
                 break;
             case 5:
-                absoluteSoundNum_result = absoluteSoundNum_result + 5 + flet_root;
+                absoluteSoundNum_result = 5 + flet_root;
                 break;
             case 6:
-                absoluteSoundNum_result = absoluteSoundNum_result + 0 + flet_root;
+                absoluteSoundNum_result = 0 + flet_root;
                 break;
         }
         return absoluteSoundNum_result;
