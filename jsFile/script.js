@@ -68,14 +68,14 @@
         const from_to = [12, 47];
         let code_array =[];
         let code = [];
-        // var list_code =[];
-                for(var num=from_to[0] + (root % 12); num<=from_to[1]; num = num + 12){
+        // let list_code =[];
+                for(let num=from_to[0] + (root % 12); num<=from_to[1]; num = num + 12){
                         //初期化
                         let list =[];
                         //first code
                         if(num ==from_to[0] + (root % 12) ){
                             //配列に root , 3rd, 5th の追加
-                            for(var num2=0; num2<major_code.length; num2++){
+                            for(let num2=0; num2<major_code.length; num2++){
                                 list.push(num + major_code[num2]);
                             }
                             code_array.push(list);
@@ -83,19 +83,19 @@
                         //last code
                         }else if(num + 12 >=from_to[1]){
                             console.log('else if');
-                            for(var num2=0; num2<major_code.length; num2++){
+                            for(let num2=0; num2<major_code.length; num2++){
                                 list.push(num + major_code[num2]);
                             }
                             code_array.push(list);
                         }else{
                             console.log('else');
-                            for(var num2=0; num2<major_code.length; num2++){
+                            for(let num2=0; num2<major_code.length; num2++){
                                 list.push(num - major_code[num2]);
                             }
                             code_array.push(list);
                             //初期化
                             list = [];
-                            for(var num2=0; num2<major_code.length; num2++){
+                            for(let num2=0; num2<major_code.length; num2++){
                                 list.push(num + major_code[num2]);
                             }
                             code_array.push(list);
@@ -117,13 +117,13 @@
         console.log('makeCodeRootConfiguration>>>>>>>>>>>>>>>>');
         const major_code = [0, 4, 5];
         const from_to = [12, 47];
-        var code_array =[];
-        var code = [];
-        // var list_code =[];
-        for(var num=from_to[0] + (root % 12); num<=from_to[1]; num = num + 12){
+        let code_array =[];
+        let code = [];
+        // let list_code =[];
+        for(let num=from_to[0] + (root % 12); num<=from_to[1]; num = num + 12){
                 //初期化
                 let list =[];
-                for(var num2=0; num2<major_code.length; num2++){
+                for(let num2=0; num2<major_code.length; num2++){
                     list.push(num + major_code[num2]);
                 }
                 code_array.push(list);
@@ -155,28 +155,28 @@
         const got_codes = list_test;
 
         const flet_num = first_string.length;
-         var all_code_component = [];
+         let all_code_component = [];
 
-         for(var num1 = 0; num1<got_codes.length; num1++){
-             var root = got_codes[num1][0];
+         for(let num1 = 0; num1<got_codes.length; num1++){
+             let root = got_codes[num1][0];
 
              //all_strings のデータからコードになりうるデータを探す
              // 弦
-             for(var num2 = 0; num2<6; num2++){
-                 for(var num3 = 0; num3<all_strings[0].length; num3++){
+             for(let num2 = 0; num2<6; num2++){
+                 for(let num3 = 0; num3<all_strings[0].length; num3++){
                     let searching_flet = all_strings[num2][num3];
                     console.log('searching_flet', searching_flet, num3);
                     // console.log('root', root);
                     if(root == searching_flet){
                         // console.log('searching_flet', searching_flet);
-                        var code_comp = [];
+                        let code_comp = [];
                         code_comp.push([num2, num3]);
                         console.log(code_comp, 'code_comp最初に追加');
                         //弦
-                        for(var num4_second = num2 - 1; 0 <= num4_second ; num4_second--){
+                        for(let num4_second = num2 - 1; 0 <= num4_second ; num4_second--){
                             //フレット
-                            for(var num5_third = num3; num5_third < num3 + 4; num5_third++){
-                                for(var num6_got_code = 0; num6_got_code < got_codes.length; num6_got_code++){
+                            for(let num5_third = num3; num5_third < num3 + 4; num5_third++){
+                                for(let num6_got_code = 0; num6_got_code < got_codes.length; num6_got_code++){
                                     if(got_codes[num1][num6_got_code] == all_strings[num4_second][num5_third]){
                                         code_comp.push([num4_second, num5_third]);
                                         // console.log([num4_second, num5_third], code_comp, 'ifのなか');
@@ -190,9 +190,9 @@
              }
          }
         // console.log(all_code_component, 'all_code_component');
-        for(var test1 = 0; test1 < all_code_component.length; test1++){
-            for(var test2 = 0; test2 < all_code_component[test1].length; test2++){
-                for(var test3 = 0; test3 < all_code_component[test1][test2].length; test3++){
+        for(let test1 = 0; test1 < all_code_component.length; test1++){
+            for(let test2 = 0; test2 < all_code_component[test1].length; test2++){
+                for(let test3 = 0; test3 < all_code_component[test1][test2].length; test3++){
                 }
             }
         }
@@ -203,23 +203,23 @@
     function makeCodehtml()
     {
         console.log('makeCodehtml>>>>');
-        var tbl = document.createElement("table");
-        var tblBody = document.createElement("tbody");
+        let tbl = document.createElement("table");
+        let tblBody = document.createElement("tbody");
         // creating all cells
-        for (var i = 0; i < 6; i++) {
+        for (let i = 0; i < 6; i++) {
             // creates a table row
-            var row = document.createElement("tr");
+            let row = document.createElement("tr");
 
-            for (var j = 0; j < 15; j++) {
-            var cell = document.createElement("td");
-            var div  = document.createElement("div");
+            for (let j = 0; j < 15; j++) {
+            let cell = document.createElement("td");
+            let div  = document.createElement("div");
             //callConsole
             div.classList.add("guitar_table_point")
-            var cellText = document.createTextNode("a");
+            let cellText = document.createTextNode("a");
 
             //各cell の td に入れる id を作成
             cell.id = "sf" + i+j;
-            var cell_id = "sf" + i+j;
+            let cell_id = "sf" + i+j;
 
             cell.href = "";
             div.appendChild(cellText);
@@ -233,10 +233,10 @@
             tblBody.classList.add("guitar-cell")
         }
         //flet の序数
-        var row_flet_num = document.createElement("tr");
-        for(var k = 0; k < 15; k++){
-            var cell_flet_num = document.createElement("td");
-            var flet_num_text = document.createTextNode(k);
+        let row_flet_num = document.createElement("tr");
+        for(let k = 0; k < 15; k++){
+            let cell_flet_num = document.createElement("td");
+            let flet_num_text = document.createTextNode(k);
             cell_flet_num.appendChild(flet_num_text);
             row_flet_num.appendChild(cell_flet_num);
         }
@@ -244,7 +244,7 @@
 
         // put the <tbody> in the <table>
         tbl.appendChild(tblBody);
-        var aElement = document.getElementById("test1");
+        let aElement = document.getElementById("test1");
         aElement.appendChild(tbl);
         // return []
     }
@@ -275,16 +275,16 @@
         let root_sound = [Number(set_string), Number(set_flet)];
 
         //TODO クリックしたセルから、作成すべきコードの添字配列を作成する
-        // var got_codes_list = [[[0,10],[2,3],[3,4],[1,3]], [[1,5],[2,3],[3,4]]];
+        // let got_codes_list = [[[0,10],[2,3],[3,4],[1,3]], [[1,5],[2,3],[3,4]]];
         let got_codes_list = allGuitarCodeList(root_sound, 'major');
         
-        for(var got_code = 0; got_code < got_codes_list.length; got_code++){
+        for(let got_code = 0; got_code < got_codes_list.length; got_code++){
 
             //flet の最大値最小値の取得
-            var flet_max = 0;
-            var flet_min = 20;
-            var string_list = [0, 0, 0, 0, 0, 0];
-            for(var got_code_flet = 0; got_code_flet < got_codes_list[got_code].length; got_code_flet++){
+            let flet_max = 0;
+            let flet_min = 20;
+            let string_list = [0, 0, 0, 0, 0, 0];
+            for(let got_code_flet = 0; got_code_flet < got_codes_list[got_code].length; got_code_flet++){
                 if(got_codes_list[got_code][got_code_flet][1] < flet_min){
                     flet_min = got_codes_list[got_code][got_code_flet][1];
                 }
@@ -293,29 +293,29 @@
                 }
                 
                 //string
-                for(var got_code_string = 0; got_code_string < got_codes_list[got_code].length; got_code_string++){
-                    var string_num_exist = got_codes_list[got_code][got_code_flet][0];
+                for(let got_code_string = 0; got_code_string < got_codes_list[got_code].length; got_code_string++){
+                    let string_num_exist = got_codes_list[got_code][got_code_flet][0];
                     string_list[string_num_exist] = 1;
                 }
             }
 
-            var tbl = document.createElement("table");
-            var tblBody = document.createElement("tbody");
+            let tbl = document.createElement("table");
+            let tblBody = document.createElement("tbody");
 
             // console.log('flet_max', flet_max, 'flet_min', flet_min);
-            for (var i = 0; i < 6; i++) {
+            for (let i = 0; i < 6; i++) {
                 // creates a table row
-                var row = document.createElement("tr");
-                for (var j = flet_min; j <= flet_max; j++) {
-                    var cell = document.createElement("td");
-                    var div  = document.createElement("div");
+                let row = document.createElement("tr");
+                for (let j = flet_min; j <= flet_max; j++) {
+                    let cell = document.createElement("td");
+                    let div  = document.createElement("div");
                     //callConsole
                     div.classList.add("guitar_table_point")
                     div.addEventListener("click", callConsole, false);
                     cell.id = "st" + i+j;
                     cell.href = "";
-                    var cellText = document.createTextNode("a");
-                    for(var got_code_content = 0; got_code_content < got_codes_list[got_code].length; got_code_content++){
+                    let cellText = document.createTextNode("a");
+                    for(let got_code_content = 0; got_code_content < got_codes_list[got_code].length; got_code_content++){
                         if(string_list[i] == 0){
                             div.classList.add("guitar-cell-off");
 
@@ -332,25 +332,25 @@
             }
 
             //flet の番号
-            var num_row = document.createElement("tr");
-            for(var flet_num = flet_min; flet_num <= flet_max; flet_num ++){
-                var num_cell = document.createElement("td");
+            let num_row = document.createElement("tr");
+            for(let flet_num = flet_min; flet_num <= flet_max; flet_num ++){
+                let num_cell = document.createElement("td");
                 num_cell.id = "fn" + flet_num;
                 // num_cellcell.href = "";
-                var flet_num_text = document.createTextNode(flet_num);
+                let flet_num_text = document.createTextNode(flet_num);
                 num_cell.appendChild(flet_num_text);
                 num_row.appendChild(num_cell);
             }
             tblBody.appendChild(num_row);
             tbl.appendChild(tblBody);
-            var aElement = document.getElementById("test2");
+            let aElement = document.getElementById("test2");
             //TODO 新しいコードの生成時には前のコードはすべて削除する
             // aElement.remove();
             aElement.appendChild(tbl);
 
             //区切り　実装段階では消す
-            var part = document.createElement("p");
-            var part_text = document.createTextNode("区切り");
+            let part = document.createElement("p");
+            let part_text = document.createTextNode("区切り");
             part.appendChild(part_text);
             part.classList.add("text-red");
             aElement.appendChild(part);
@@ -375,7 +375,7 @@
         console.log('allGuitarCodeList渡された変数', root_sound, kind_of_code, showSound(absolute_root_origin));
 
         //TODO 今後major以外の配列も作成できるようにする
-        // var code          = kind_of_code;こんな感じで渡す
+        // let code          = kind_of_code;こんな感じで渡す
         const code                 = [0, 4, 5];
         console.log('code_root_position', code_root_position, absolute_root_origin);
 
@@ -412,46 +412,120 @@
             }
         }
         console.log('コード候補のポジション');
-        console.log(all_code_positions);
-
-        let result_allGuitarCodeList = [];
-
-
-        //配列の格納
-        const string1_position=  all_code_positions[0];
-        const string2_position=  all_code_positions[1];
-        const string3_position=  all_code_positions[2];
-        const string4_position=  all_code_positions[3];
-        const string5_position=  all_code_positions[4];
-        const string6_position=  all_code_positions[5];
-        
+        // console.log(all_code_positions);
         //TODO 洗い出したポジションを組み合わせてコードを作る
-        for(let string1_variable = 0; string1_variable < string1_position.length; string1_variable++){
-            for(let string2_variable = 0; string2_variable < string2_position.length; string2_variable++){
-                for(let string3_variable = 0; string3_variable < string3_position.length; string3_variable++){
-                    for(let string4_variable = 0; string4_variable < string4_position.length; string4_variable++){
-                        for(let string5_variable = 0; string5_variable < string5_position.length; string5_variable++){
-                            let fifth_string_position_combination = [
-                                all_code_positions[0][string1_position],
-                                all_code_positions[1][string2_position],
-                                all_code_positions[2][string3_position],
-                                all_code_positions[3][string4_position],
-                                all_code_positions[4][string5_position]
-                            ];
-                            for(let string6_variable = 0; string6_variable < string6_position.length; string6_variable++){
-                                let sixth_string_position = all_code_positions[0][string6_position];
-                                // TODO ここにフィルター
-                                // root, 3rd, 5thi などのすべての構成要素がそろっているか確認する
-                                result_allGuitarCodeList += (fifth_string_position_combination + sixth_string_position);
+        let result = combinePosition(root_sound, all_code_positions);
+
+        return result;
+    }
+
+    //TODO 洗い出したポジションを組み合わせてコードを作る
+    function combinePosition (root_sound, all_code_positions){
+        console.log('root_sound all_code_positions', root_sound, all_code_positions);
+        let clicked_string = root_sound[0];
+        let combine_position = [];
+        let result =[];
+        string1_position = all_code_positions[0];
+        string2_position = all_code_positions[1];
+        string3_position = all_code_positions[2];
+        string4_position = all_code_positions[3];
+        string5_position = all_code_positions[4];
+        console.log('all_code_positions', all_code_positions[0][0]);
+        console.log();
+        // console.log(string1_position.length, string2_position.length, string3_position.length, string4_position.length, string5_position.length);
+        console.log(clicked_string);
+        switch (clicked_string){
+            case 0:
+                result = [];
+                break;
+            case 1:
+                result = [];
+                break;
+            case 2:
+                for(let string1_variable = 0; string1_variable < string1_position.length; string1_variable++){
+                    for(let string2_variable = 0; string2_variable < string2_position.length; string2_variable++){
+                        combine_position.push([
+                            all_code_positions[0][string1_variable],
+                            all_code_positions[1][string2_variable],
+                            root_sound,
+                            [],
+                            [],
+                            [],
+                        ]);
+                    }
+                }
+                
+                console.log('2>>>>>');
+                break;
+            case 3:
+                for(let string1_variable = 0; string1_variable < string1_position.length; string1_variable++){
+                    for(let string2_variable = 0; string2_variable < string2_position.length; string2_variable++){
+                        for(let string3_variable = 0; string3_variable < string3_position.length; string3_variable++){
+                            combine_position.push([
+                                all_code_positions[0][string1_variable],
+                                all_code_positions[1][string2_variable],
+                                all_code_positions[2][string3_variable],
+                                root_sound,
+                                [],
+                                [],
+                            ]);
+                        }
+                    }
+                }
+                console.log('3>>>>>');
+                break;
+            case 4:
+                for(let string1_variable = 0; string1_variable < string1_position.length; string1_variable++){
+                    for(let string2_variable = 0; string2_variable < string2_position.length; string2_variable++){
+                        for(let string3_variable = 0; string3_variable < string3_position.length; string3_variable++){
+                            for(let string4_variable = 0; string4_variable < string4_position.length; string4_variable++){
+                                combine_position.push([
+                                    all_code_positions[0][string1_variable],
+                                    all_code_positions[1][string2_variable],
+                                    all_code_positions[2][string3_variable],
+                                    all_code_positions[3][string4_variable],
+                                    root_sound,
+                                    []
+                                ]);
                             }
                         }
                     }
                 }
-            }
+                
+                console.log('4>>>>>');
+                break;
+                
+            case 5:
+                for(let string1_variable = 0; string1_variable < string1_position.length; string1_variable++){
+                    for(let string2_variable = 0; string2_variable < string2_position.length; string2_variable++){
+                        for(let string3_variable = 0; string3_variable < string3_position.length; string3_variable++){
+                            for(let string4_variable = 0; string4_variable < string4_position.length; string4_variable++){
+                                for(let string5_variable = 0; string5_variable < string5_position.length; string5_variable++){
+                                    combine_position.push([
+                                        all_code_positions[0][string1_variable],
+                                        all_code_positions[1][string2_variable],
+                                        all_code_positions[2][string3_variable],
+                                        all_code_positions[3][string4_variable],
+                                        all_code_positions[4][string5_variable],
+                                        root_sound
+                                    ]);
+                                    console.log('あああ', all_code_positions[0]);
+                                }
+                            }
+                        }
+                    }
+                }
+                
+                console.log('5>>>>>');
+                break;
         }
-        console.log('result_allGuitarCodeList', result_allGuitarCodeList);
+        console.log('終了');
+        console.log(combine_position);
 
-        return result_allGuitarCodeList;
+        result = combine_position;
+
+        return result;
+        // return all_code_positions;
     }
 
     //絶対的な音の高さを出力 Eを基準に
