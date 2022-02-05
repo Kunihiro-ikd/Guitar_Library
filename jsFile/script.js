@@ -411,7 +411,7 @@
                 }
             }
         }
-        console.log('コード候補のポジション');
+        console.log('コード候補のポジション', all_code_positions);
         // console.log(all_code_positions);
         //TODO 洗い出したポジションを組み合わせてコードを作る
         let result = combinePosition(root_sound, all_code_positions);
