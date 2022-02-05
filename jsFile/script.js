@@ -1,6 +1,7 @@
 // //各フレットの数値の組み合わせ キーはがデフォルト
     // TODO 何フレットまで作るべき？
     // E, F#, F, G, G#, A, A#, B, C, C#, D, D#
+    const codes_list = ['E', 'F#', 'F', 'G', 'G#', 'A', 'A#', 'B', 'C', 'C#', 'D', 'D#'];
 
     const string1 = [[1,0],[1,1],[1,2],[1,3],[1,4],[1,5],[1,6],[1,7],[1,8],[1,9],[1,10],[1,11],[1,12],[1,13],[1,14],[1,15],[1,16],[1,17],[1,18],[1,19],[1,20]];
     const string2 = [[2,0],[2,1],[2,2],[2,3],[2,4],[2,5],[2,6],[2,7],[2,8],[2,9],[2,10],[2,11],[2,12],[2,13],[2,14],[2,15],[2,16],[2,17],[2,18],[2,19],[2,20]];
@@ -58,63 +59,10 @@
         return []
     }
 
-    // TODO 全てのコードの組み合わせ
-    // major → root, 3rd, 5th/ seventh → root, 3rd, 5th, 7th
-    // 意味和から無いコード作ってしまった。
-    function makeAllCodeConfiguration(root, code_kind)
-    {
-        console.log('makeAllCodeConfiguration>>>>>>>>>>>>>>>>');
-        const major_code = [0, 4, 5];
-        const from_to = [12, 47];
-        let code_array =[];
-        let code = [];
-        // let list_code =[];
-                for(let num=from_to[0] + (root % 12); num<=from_to[1]; num = num + 12){
-                        //初期化
-                        let list =[];
-                        //first code
-                        if(num ==from_to[0] + (root % 12) ){
-                            //配列に root , 3rd, 5th の追加
-                            for(let num2=0; num2<major_code.length; num2++){
-                                list.push(num + major_code[num2]);
-                            }
-                            code_array.push(list);
-                            console.log('if');
-                        //last code
-                        }else if(num + 12 >=from_to[1]){
-                            console.log('else if');
-                            for(let num2=0; num2<major_code.length; num2++){
-                                list.push(num + major_code[num2]);
-                            }
-                            code_array.push(list);
-                        }else{
-                            console.log('else');
-                            for(let num2=0; num2<major_code.length; num2++){
-                                list.push(num - major_code[num2]);
-                            }
-                            code_array.push(list);
-                            //初期化
-                            list = [];
-                            for(let num2=0; num2<major_code.length; num2++){
-                                list.push(num + major_code[num2]);
-                            }
-                            code_array.push(list);
-                        }
-                    if(num + 12 >from_to[1]){
-                        console.log(from_to[1], num, 'break');
-                        break;
-                    }
-                }
-        console.log('出力コード',code_array);
-        console.log('finish_function>>>>>>>>>>>>>>>>>>>>>');
-        return code_array;
-    }
-
     //root が root のコードだけ作成
     //構成 major → root, 3rd, 5th/ 7th →
     function makeCodeRootConfiguration(root, code_kind)
     {
-        console.log('makeCodeRootConfiguration>>>>>>>>>>>>>>>>');
         const major_code = [0, 4, 5];
         const from_to = [12, 47];
         let code_array =[];
@@ -135,14 +83,9 @@
         return code_array;
     }
 
-    function callConsole(){
-        console.log('clicked');
-    }
-
     //構成音から抑えるべきフレッドと弦のリストを作成
     function makeCode(list_test)
     {
-        console.log('makeCode>>>>>>>>>>>>>>>>>呼び出し');
         const  first_string  = string1;
         const  second_string = string2;
         const  third_string  = string3;
@@ -171,7 +114,6 @@
                         // console.log('searching_flet', searching_flet);
                         let code_comp = [];
                         code_comp.push([num2, num3]);
-                        console.log(code_comp, 'code_comp最初に追加');
                         //弦
                         for(let num4_second = num2 - 1; 0 <= num4_second ; num4_second--){
                             //フレット
@@ -199,10 +141,13 @@
         return all_code_component;
     }
 
+    function callConsole(){
+        console.log('clicked');
+    }
+
     //guitar 最初にギターのコードを作成
     function makeCodehtml()
     {
-        console.log('makeCodehtml>>>>');
         let tbl = document.createElement("table");
         let tblBody = document.createElement("tbody");
         // creating all cells
@@ -213,7 +158,6 @@
             for (let j = 0; j < 15; j++) {
             let cell = document.createElement("td");
             let div  = document.createElement("div");
-            //callConsole
             div.classList.add("guitar_table_point")
             let cellText = document.createTextNode("a");
 
@@ -254,9 +198,6 @@
     // Cコードの場合1 - 3 フレットの長さのコードを表示
     function makeCodeHtmlGuitar()
     {
-        console.log('クリックされたmakeCodeHtmlGuitar>>>>>>', this.cell_id);
-
-
         //クリックされたセルのid の設定
         let set_string = -1;
         let set_flet   = -1;
@@ -270,12 +211,11 @@
             set_flet   = this.cell_id.substring(3, 4);
         }
         
-        // TODO ここにセルをクリックしたときに配列を作成するコードを使う
+        //  ここにセルをクリックしたときに配列を作成するコードを使う
         let root = 'root';
         let root_sound = [Number(set_string), Number(set_flet)];
 
-        //TODO クリックしたセルから、作成すべきコードの添字配列を作成する
-        // let got_codes_list = [[[0,10],[2,3],[3,4],[1,3]], [[1,5],[2,3],[3,4]]];
+        // クリックしたセルから、作成すべきコードの添字配列を作成する
         let got_codes_list = allGuitarCodeList(root_sound, 'major');
         
         for(let got_code = 0; got_code < got_codes_list.length; got_code++){
@@ -345,6 +285,9 @@
             tbl.appendChild(tblBody);
             let aElement = document.getElementById("test2");
             //TODO 新しいコードの生成時には前のコードはすべて削除する
+            // while (aElement.firstChild) {
+            //     aElement.removeChild(aElement.firstChild);
+            // }
             // aElement.remove();
             aElement.appendChild(tbl);
 
@@ -387,16 +330,14 @@
 
         //コードの構成に使えそうなポジションの洗い出し
         let all_code_positions = [[], [], [], [], [], []];
-        console.log('コードの構成に使えそうなポジションの洗い出し');
         for(let a_search_string = search_string_limit_max;search_string_limit_min < a_search_string; a_search_string--){//弦[ [弦, フレット], [弦, フレット], ... ] TODO ここどうする？？
             for(let a_search_flet = search_flet_limit_min;  a_search_flet <  search_flet_limit_max; a_search_flet++){//フレット[弦, フレット]
                 //音階が和音になるか確認
                 // TODO　追加されるポジションが間違っている
                 let judge_code_component = false
                 let search_number = absoluteSoundNum(all_string_flet_list[a_search_string][a_search_flet]) % 12;
-                // console.log(a_search_string, a_search_flet, search_number, showSound(search_number));
 
-                // TODO なぜ正解のコードが追加されないのか見る
+                // コードになりえるポジション追加
                 for(let code_component = 0; code_component < code.length; code_component++){
                     let test = (absolute_root_origin + code[code_component]) % 12;
                     // console.log('検索', showSound(test));
@@ -430,8 +371,6 @@
         string3_position = all_code_positions[2];
         string4_position = all_code_positions[3];
         string5_position = all_code_positions[4];
-        console.log('all_code_positions', all_code_positions[0][0]);
-        console.log();
         // console.log(string1_position.length, string2_position.length, string3_position.length, string4_position.length, string5_position.length);
         console.log(clicked_string);
         switch (clicked_string){
@@ -519,7 +458,6 @@
                 console.log('5>>>>>');
                 break;
         }
-        console.log('終了');
         console.log(combine_position);
 
         result = combine_position;
