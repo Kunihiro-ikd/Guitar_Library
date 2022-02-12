@@ -198,6 +198,12 @@
     // Cコードの場合1 - 3 フレットの長さのコードを表示
     function makeCodeHtmlGuitar()
     {
+        //前のコードの削除
+        let previus_dlement = document.getElementById("test2");
+        while (previus_dlement.firstChild) {
+            previus_dlement.removeChild(previus_dlement.firstChild);
+        }
+
         //クリックされたセルのid の設定
         let set_string = -1;
         let set_flet   = -1;
@@ -266,7 +272,7 @@
                     div.appendChild(cellText);
                     cell.appendChild(div);
                     row.appendChild(cell);
-                    row.classList.add("guitar-cell")
+                    row.classList.add("guitar-cell");
                 }
                     tblBody.appendChild(row);
             }
@@ -283,20 +289,19 @@
             }
             tblBody.appendChild(num_row);
             tbl.appendChild(tblBody);
+            tbl.classList.add('mr-1');
+            tbl.classList.add('bg-flet');
+
             let aElement = document.getElementById("test2");
-            //TODO 新しいコードの生成時には前のコードはすべて削除する
-            // while (aElement.firstChild) {
-            //     aElement.removeChild(aElement.firstChild);
-            // }
-            // aElement.remove();
             aElement.appendChild(tbl);
 
-            //区切り　実装段階では消す
-            let part = document.createElement("p");
-            let part_text = document.createTextNode("区切り");
-            part.appendChild(part_text);
-            part.classList.add("text-red");
-            aElement.appendChild(part);
+            //区切り  
+            // let part = document.createElement("p");
+            // let part_text = document.createTextNode("区切り");
+            // part.appendChild(part_text);
+            // part.classList.add("text-red");
+            // aElement.appendChild(part);
+            
         }
         // return []
     }
