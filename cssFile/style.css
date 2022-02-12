@@ -1,1 +1,44 @@
 /* #css style */
+body{
+    background: #aaa;
+}
+.bg-slategray{
+    background: slategray;
+}
+
+.guitar-cell{
+    background: grey;
+    /* width: 1rem; */
+}
+.guitar-cell-off{
+    background-color: hotpink;
+}
+.text-red{
+    color: red;
+    background-color: red;
+}
+
+.test-flet{
+    padding: 10rem;
+    margin-right: 5rem;
+    background-color: aqua;
+}
+
+.guitar_table_point{
+    display: flex;
+    align-items: center; /* 垂直中心 */
+    justify-content: center; /* 水平中心 */
+    border: solid;
+
+}
+.guitar_table_point:before, .guitar_table_point:after{
+    border-top: 1px solid;
+    content: "";
+    width: 1.4rem; /* 線の長さ */
+}
+.guitar_table_point:before{
+    margin-right: .3rem; /* 文字の右隣 */
+}
+.guitar_table_point:after{
+    margin-left: .3rem; /* 文字の左隣 */
+}
