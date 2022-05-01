@@ -1,12 +1,14 @@
 <template>
-<div>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>|
-    <router-link to="/test">Test</router-link>
-  </nav>
-  <router-view/>
-</div>
+  <div>
+    <h3 style="text-align: left">vue_template</h3>
+    <nav>
+      <router-link to="/">Home</router-link> |
+      <router-link to="/about">About</router-link> |
+      <router-link to="/test">TestDrag</router-link> |
+      <router-link to="/testClone">TestDragClone</router-link> |
+    </nav>
+    <router-view/>
+  </div>
 </template>
 
 <style>
