@@ -56,58 +56,53 @@ export default {
     }
   },
   mounted() {
-      let tbl = document.createElement("table");
-      let tblBody = document.createElement("tbody");
-      // creating all cells
-      for (let i = 0; i < 6; i++) {
-          // creates a table row
-          let row = document.createElement("tr");
+    let tbl = document.createElement("table");
+    let tblBody = document.createElement("tbody");
+    // creating all cells
+    for (let i = 0; i < 6; i++) {
+      let row = document.createElement("tr");
 
-          for (let j = 0; j < 15; j++) {
-          let cell = document.createElement("td");
-          let div  = document.createElement("div");
-          div.classList.add("guitar_table_point");
-          let cellText = document.createTextNode("a");
+      for (let j = 0; j < 15; j++) {
+        let cell = document.createElement("td");
+        let div  = document.createElement("div");
+        div.classList.add("guitar_table_point");
+        let cellText = document.createTextNode("a");
 
-          //各cell の td に入れる id を作成
-          cell.id = "sf" + i + j;
-          let cell_id = "sf" + i + j;
+        //各cell の td に入れる id を作成
+        cell.id = "sf" + i + j;
+        let cell_id = "sf" + i + j;
+        cell.href = "";
+        div.appendChild(cellText);
+        cell.appendChild(div);
 
-          cell.href = "";
-          div.appendChild(cellText);
-          cell.appendChild(div);
-
-          // セルをクリックした時、関数が動く
-          // cell.addEventListener("click", {cell_id: cell_id, handleEvent: this.makeCodeHtmlGuitar(cell_id)}, false);
-          cell.addEventListener("click", this.makeCodeHtmlGuitar.bind(cell_id), false);
-          row.appendChild(cell);
-          }
-          tblBody.appendChild(row);
-          tblBody.classList.add("guitar-cell");
-        }
-      //flet の序数
-      let row_flet_num = document.createElement("tr");
-      for(let k = 0; k < 15; k++){
-          let cell_flet_num = document.createElement("td");
-          let flet_num_text = document.createTextNode(k);
-          cell_flet_num.appendChild(flet_num_text);
-          row_flet_num.appendChild(cell_flet_num);
+        // セルをクリックした時、関数が動く
+        // cell.addEventListener("click", {cell_id: cell_id, handleEvent: this.makeCodeHtmlGuitar(cell_id)}, false);
+        cell.addEventListener("click", this.makeCodeHtmlGuitar.bind(cell_id), false);
+        row.appendChild(cell);
       }
-      tblBody.appendChild(row_flet_num);
+      tblBody.appendChild(row);
+      tblBody.classList.add("guitar-cell");
+    }
+    //flet の序数
+    let row_flet_num = document.createElement("tr");
+    for (let k = 0; k < 15; k++) {
+      let cell_flet_num = document.createElement("td");
+      let flet_num_text = document.createTextNode(k);
+      cell_flet_num.appendChild(flet_num_text);
+      row_flet_num.appendChild(cell_flet_num);
+    }
+    tblBody.appendChild(row_flet_num);
 
-      // put the <tbody> in the <table>
-      tbl.appendChild(tblBody);
-      let aElement = document.getElementById("test1");
-      aElement.appendChild(tbl);
+    // put the <tbody> in the <table>
+    tbl.appendChild(tblBody);
+    let aElement = document.getElementById("test1");
+    aElement.appendChild(tbl);
 
-      let test  = document.createElement("div");
-      let testText = document.createTextNode("bbb");
-      test.appendChild(testText);
-      test.addEventListener("click",this.testf.bind(this));
-      aElement.appendChild(test);
-      
-
-
+    let test  = document.createElement("div");
+    let testText = document.createTextNode("bbb");
+    test.appendChild(testText);
+    test.addEventListener("click",this.testf.bind(this));
+    aElement.appendChild(test);
 
   },
   methods: {
@@ -125,51 +120,47 @@ export default {
       console.log('clicked');
     },
     makeCode(list_test) {
-        // const  first_string  = string1;
-        // const  second_string = string2;
-        // const  third_string  = string3;
-        // const  fourth_string = string4;
-        // const  fifth_string  = string5;
-        // const  sixth_string  = string6;
-        const  all_strings   = strings;
+      // const  first_string  = string1;
+      // const  second_string = string2;
+      // const  third_string  = string3;
+      // const  fourth_string = string4;
+      // const  fifth_string  = string5;
+      // const  sixth_string  = string6;
+      const all_strings   = strings;
 
-        // const  got_codes = [[13, 17, 18], [25, 29, 30], [37, 41, 42]];
-        const got_codes = list_test;
+      // const  got_codes = [[13, 17, 18], [25, 29, 30], [37, 41, 42]];
+      const got_codes = list_test;
 
-        // const flet_num = first_string.length;
-         let all_code_component = [];
+      // const flet_num = first_string.length;
+      let all_code_component = [];
 
-         for(let num1 = 0; num1<got_codes.length; num1++){
-             let root = got_codes[num1][0];
+      for (let num1 = 0; num1 < got_codes.length; num1++) {
+        let root = got_codes[num1][0];
 
-             //all_strings のデータからコードになりうるデータを探す
-             // 弦
-             for(let num2 = 0; num2<6; num2++){
-                 for(let num3 = 0; num3<all_strings[0].length; num3++){
-                    let searching_flet = all_strings[num2][num3];
-                    console.log('searching_flet', searching_flet, num3);
-                    // console.log('root', root);
-                    if(root == searching_flet){
-                        // console.log('searching_flet', searching_flet);
-                        let code_comp = [];
-                        code_comp.push([num2, num3]);
-                        //弦
-                        for(let num4_second = num2 - 1; 0 <= num4_second ; num4_second--){
-                            //フレット
-                            for(let num5_third = num3; num5_third < num3 + 4; num5_third++){
-                                for(let num6_got_code = 0; num6_got_code < got_codes.length; num6_got_code++){
-                                    if(got_codes[num1][num6_got_code] == all_strings[num4_second][num5_third]){
-                                        code_comp.push([num4_second, num5_third]);
-                                        // console.log([num4_second, num5_third], code_comp, 'ifのなか');
-                                    }
-                                }
-                            }
-                        }
-                        all_code_component.push(code_comp);
+         //all_strings のデータからコードになりうるデータを探す
+         // 弦
+        for (let num2 = 0; num2<6; num2++) {
+          for (let num3 = 0; num3<all_strings[0].length; num3++) {
+              let searching_flet = all_strings[num2][num3];
+              if (root == searching_flet) {
+                let code_comp = [];
+                code_comp.push([num2, num3]);
+                //弦
+                for(let num4_second = num2 - 1; 0 <= num4_second ; num4_second--){
+                //フレット
+                  for(let num5_third = num3; num5_third < num3 + 4; num5_third++){
+                    for(let num6_got_code = 0; num6_got_code < got_codes.length; num6_got_code++){
+                      if(got_codes[num1][num6_got_code] == all_strings[num4_second][num5_third]){
+                        code_comp.push([num4_second, num5_third]);
+                      }
                     }
-                 }
-             }
-         }
+                  }
+                }
+                all_code_component.push(code_comp);
+              }
+           }
+        }
+      }
         // console.log(all_code_component, 'all_code_component');
         // for(let test1 = 0; test1 < all_code_component.length; test1++){
         //     for(let test2 = 0; test2 < all_code_component[test1].length; test2++){

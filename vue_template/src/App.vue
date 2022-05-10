@@ -2,6 +2,7 @@
   <div>
     <h3 style="text-align: left">vue_template</h3>
     <nav>
+      <router-link to="/Login">Login</router-link> |
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link> |
       <router-link to="/test">TestDrag</router-link> |

@@ -1,9 +1,15 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
+import LoginPage from '../views/LoginPage.vue'
 import TestDrag from '../views/TestDrag.vue'
 import TestDragClone from '../views/TestDragClone.vue'
 
 const routes = [
+  {
+    path: '/login',
+    name: 'login',
+    component: LoginPage,
+  },
   {
     path: '/',
     name: 'home',

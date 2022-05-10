@@ -2,7 +2,7 @@
   <div class="flex justify-center">
     <div class="flex mx-10">
       <div class="card1 w-64 flex justify-center px-5">
-        <button class="btn btn-primary">bootstrap-btn</button>
+        <button class="btn btn-primary" @click="addList">bootstrap-btn-add-list</button>
 
         <div class="container">
           <div class="row">
@@ -86,11 +86,12 @@ export default defineComponent({
   data() {
     return {
       enabled: true,
+      counter: 5,
       list1: [
-        { name: 'John', id: 1 },
-        { name: 'Joao', id: 2 },
-        { name: 'Jean', id: 3 },
-        { name: 'Gerard', id: 4 },
+        { name: 'John', id: 1, string: 1, flet: 1, code_name: 'major', },
+        { name: 'Joao', id: 2, string: 1, flet: 1, code_name: 'major', },
+        { name: 'Jean', id: 3, string: 1, flet: 1, code_name: 'major',},
+        { name: 'Gerard', id: 4, string: 1, flet: 1, code_name: 'major', },
       ],
       list2: [
         { name: 'Juan', id: 5 },
@@ -103,6 +104,10 @@ export default defineComponent({
   methods: {
     add() {
       console.log('add')
+    },
+    addList() {
+      this.list1.push({ name: 'addList', id: this.counter });
+      this.counter++;
     },
     replace() {
       console.log('replace')
