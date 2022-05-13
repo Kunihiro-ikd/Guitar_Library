@@ -4,7 +4,7 @@
     <div class="container">
       <div class="row">
         <div class="col-5">
-          <h3>draggle</h3>
+          <h3>draggle </h3>
           <draggable
             class="dragArea list-group w-full"
             :list="list1"
@@ -20,23 +20,25 @@
             >
               {{ element.name }}
             </div>
+          
           </draggable>
           <h3>drag accept</h3>
           <draggable
-              class="dragArea list-group w-full"
-              :list="list2"
-              group="people"
-              @change="log"
-              :move="checkMove"
+            class="dragArea list-group w-full"
+            :list="list2"
+            group="people"
+            @change="log"
+            :move="checkMove"
+          >
+            <div
+              class="list-group-item bg-gray-300 m-1 p-3 rounded-md text-center"
+              v-for="element in list2"
+              :key="element.name"
             >
-              <div
-                class="list-group-item bg-gray-300 m-1 p-3 rounded-md text-center"
-                v-for="element in list2"
-                :key="element.name"
-              >
-                {{ element.name }}
-              </div>
-            </draggable>
+              {{ element.name }}
+            </div>
+          </draggable>
+          
         </div>
         <div class="col-5">
           <div id="test1"></div>
@@ -48,14 +50,13 @@
       </div>
     </div>
 
-    <h1 @click="aaa()">aaa</h1>
     
   </div>
 </template>
 
 <script>
-import { VueDraggableNext } from 'vue-draggable-next'
 import { defineComponent } from 'vue'
+import { VueDraggableNext } from 'vue-draggable-next'
   const string1 = [[1,0],[1,1],[1,2],[1,3],[1,4],[1,5],[1,6],[1,7],[1,8],[1,9],[1,10],[1,11],[1,12],[1,13],[1,14],[1,15],[1,16],[1,17],[1,18],[1,19],[1,20]];
   const string2 = [[2,0],[2,1],[2,2],[2,3],[2,4],[2,5],[2,6],[2,7],[2,8],[2,9],[2,10],[2,11],[2,12],[2,13],[2,14],[2,15],[2,16],[2,17],[2,18],[2,19],[2,20]];
   const string3 = [[3,0],[3,1],[3,2],[3,3],[3,4],[3,5],[3,6],[3,7],[3,8],[3,9],[3,10],[3,11],[3,12],[3,13],[3,14],[3,15],[3,16],[3,17],[3,18],[3,19],[3,20]];
@@ -68,7 +69,7 @@ import { defineComponent } from 'vue'
       string3,
       string4,
       string5,
-      string6
+      string6,
   ];
 export default defineComponent({
   name: 'HelloWorld',
@@ -78,30 +79,20 @@ export default defineComponent({
   components: {
     draggable: VueDraggableNext,
   },
-  date() {
+  data(){
     return {
       count: 6,
       counter: 5,
-      items: [
-          {id:1, name: "ITEM - 1"},
-          {id:2, name: "ITEM - 2"},
-          {id:3, name: "ITEM - 3"},
-          {id:4, name: "ITEM - 4"},
-          {id:5, name: "ITEM - 5"},
-      ],
-      list1: [
-        { name: 'John', id: 1, string: 1, flet: 1, code_name: 'major', },
-        { name: 'Joao', id: 2, string: 1, flet: 1, code_name: 'major', },
-        { name: 'Jean', id: 3, string: 1, flet: 1, code_name: 'major',},
-        { name: 'Gerard', id: 4, string: 1, flet: 1, code_name: 'major', },
-      ],
-      list2: [
-        { name: 'Juan', id: 5 },
-        { name: 'Edgard', id: 6 },
-        { name: 'Johnson', id: 7 },
-      ],
       dragging: false,
       enabled: true,
+      list1: [
+          { name: 'John', id: 1, string: 1, flet: 1, code_name: 'major', },
+          { name: 'Joao', id: 2, string: 1, flet: 1, code_name: 'major', },
+        ],
+        list2: [
+          { name: 'Juan', id: 5 },
+          { name: 'Edgard', id: 6 },
+        ],
     }
   },
   mounted() {
@@ -118,9 +109,9 @@ export default defineComponent({
         let cellText = document.createTextNode("a");
 
         //各cell の td に入れる id を作成
-        cell.id = "sf" + i + j;
+        cell.id     = "sf" + i + j;
         let cell_id = "sf" + i + j;
-        cell.href = "";
+        cell.href   = "";
         div.appendChild(cellText);
         cell.appendChild(div);
 
@@ -150,7 +141,6 @@ export default defineComponent({
     let test  = document.createElement("div");
     let testText = document.createTextNode("bbb");
     test.appendChild(testText);
-    test.addEventListener("click",this.testf.bind(this));
     aElement.appendChild(test);
 
   },
@@ -158,25 +148,16 @@ export default defineComponent({
     showItems() {
       alert(this.items.map(val => { return val.id }))
     },
-    aaa() {
+
+    aaa(){
       console.log(1111);
     },
     callf(cell) {
       console.log('clicked');
       console.log(cell);
     },
-    testf() {
-      console.log('clicked');
-    },
     makeCode(list_test) {
-      // const  first_string  = string1;
-      // const  second_string = string2;
-      // const  third_string  = string3;
-      // const  fourth_string = string4;
-      // const  fifth_string  = string5;
-      // const  sixth_string  = string6;
       const all_strings   = strings;
-
       // const  got_codes = [[13, 17, 18], [25, 29, 30], [37, 41, 42]];
       const got_codes = list_test;
 
@@ -222,10 +203,8 @@ export default defineComponent({
 
     makeCodeHtmlGuitar(cell_id) {
       //前のコードの削除
-      console.log('aasdfas');
       console.log(cell_id);
       let previus_dlement = document.getElementById("test2");
-
       if (previus_dlement !== null) {
         while (previus_dlement.firstChild) {
             previus_dlement.removeChild(previus_dlement.firstChild);
@@ -249,76 +228,83 @@ export default defineComponent({
       console.log(root_sound);
       // クリックしたセルから、作成すべきコードの添字配列を作成する
       let got_codes_list = this.allGuitarCodeList(root_sound, 'major');
+
+      //dragAndDropの初期化・追加
+      this.list1 = [];
+      for (let i = 0; i < got_codes_list.length; i++) {
+        this.list1.push({ name: 'Code', id: 100, code: got_codes_list[i], })
+      }
       
-      for(let got_code = 0; got_code < got_codes_list.length; got_code++){
+      for (let got_code = 0; got_code < got_codes_list.length; got_code++) {
 
-          //flet の最大値最小値の取得
-          let flet_max = 0;
-          let flet_min = 20;
-          let string_list = [0, 0, 0, 0, 0, 0];
-          for(let got_code_flet = 0; got_code_flet < got_codes_list[got_code].length; got_code_flet++){
-              if(got_codes_list[got_code][got_code_flet][1] < flet_min){
-                  flet_min = got_codes_list[got_code][got_code_flet][1];
-              }
-              if(got_codes_list[got_code][got_code_flet][1] > flet_max){
-                  flet_max = got_codes_list[got_code][got_code_flet][1];
-              }
-              
-              //string
-              for(let got_code_string = 0; got_code_string < got_codes_list[got_code].length; got_code_string++){
-                  let string_num_exist = got_codes_list[got_code][got_code_flet][0];
-                  string_list[string_num_exist] = 1;
-              }
-          }
+      //flet の最大値最小値の取得
+      let flet_max = 0;
+      let flet_min = 20;
+      let string_list = [0, 0, 0, 0, 0, 0];
+      for (let got_code_flet = 0; got_code_flet < got_codes_list[got_code].length; got_code_flet++) {
+        if (got_codes_list[got_code][got_code_flet][1] < flet_min) {
+          flet_min = got_codes_list[got_code][got_code_flet][1];
+        }
+        if (got_codes_list[got_code][got_code_flet][1] > flet_max) {
+          flet_max = got_codes_list[got_code][got_code_flet][1];
+        }
 
-          let tbl = document.createElement("table");
-          let tblBody = document.createElement("tbody");
+        //string
+        for(let got_code_string = 0; got_code_string < got_codes_list[got_code].length; got_code_string++){
+          let string_num_exist = got_codes_list[got_code][got_code_flet][0];
+          string_list[string_num_exist] = 1;
+        }
+      }
 
-          // console.log('flet_max', flet_max, 'flet_min', flet_min);
-          for (let i = 0; i < 6; i++) {
-            // creates a table row
-            let row = document.createElement("tr");
-            for (let j = flet_min; j <= flet_max; j++) {
-              let cell = document.createElement("td");
-              let div  = document.createElement("div");
-              //callConsole
-              div.classList.add("guitar_table_point")
-              // div.addEventListener("click", callConsole, false);
-              cell.id = "st" + i+j;
-              cell.href = "";
-              let cellText = document.createTextNode("a");
-              for(let got_code_content = 0; got_code_content < got_codes_list[got_code].length; got_code_content++){
-                  if(string_list[i] == 0){
-                      div.classList.add("guitar-cell-off");
-                  }else if(got_codes_list[got_code][got_code_content][0] == i && got_codes_list[got_code][got_code_content][1] == j){
-                      div.classList.add("text-red");
-                  }
-              }
-                  div.appendChild(cellText);
-                  cell.appendChild(div);
-                  row.appendChild(cell);
-                  row.classList.add("guitar-cell");
-              }
-                  tblBody.appendChild(row);
-          }
+      let tbl = document.createElement("table");
+      tbl.classList.add("one_code")
+      let tblBody = document.createElement("tbody");
 
-            //flet の番号
-            let num_row = document.createElement("tr");
-            for(let flet_num = flet_min; flet_num <= flet_max; flet_num ++){
-              let num_cell = document.createElement("td");
-              num_cell.id = "fn" + flet_num;
-              // num_cellcell.href = "";
-              let flet_num_text = document.createTextNode(flet_num);
-              num_cell.appendChild(flet_num_text);
-              num_row.appendChild(num_cell);
+      // console.log('flet_max', flet_max, 'flet_min', flet_min);
+      for (let i = 0; i < 6; i++) {
+        // creates a table row
+        let row = document.createElement("tr");
+        for (let j = flet_min; j <= flet_max; j++) {
+          let cell = document.createElement("td");
+          let div  = document.createElement("div");
+
+          div.classList.add("guitar_table_point");
+          // div.addEventListener("click", callConsole, false);
+          cell.id = "st" + i + j;
+          cell.href = "";
+          let cellText = document.createTextNode("a");
+          for(let got_code_content = 0; got_code_content < got_codes_list[got_code].length; got_code_content++){
+            if (string_list[i] == 0) {
+              div.classList.add("guitar-cell-off");
+            } else if (got_codes_list[got_code][got_code_content][0] == i && got_codes_list[got_code][got_code_content][1] == j){
+              div.classList.add("text-red");
             }
-            tblBody.appendChild(num_row);
-            tbl.appendChild(tblBody);
-            tbl.classList.add('mr-1');
-            tbl.classList.add('bg-flet');
+          }
+              div.appendChild(cellText);
+              cell.appendChild(div);
+              row.appendChild(cell);
+              row.classList.add("guitar-cell");
+            }
+              tblBody.appendChild(row);
+          }
 
-            let aElement = document.getElementById("test2");
-            aElement.appendChild(tbl);
+          //flet の番号
+          let num_row = document.createElement("tr");
+          for(let flet_num = flet_min; flet_num <= flet_max; flet_num ++){
+            let num_cell = document.createElement("td");
+            num_cell.id = "fn" + flet_num;
+            // num_cellcell.href = "";
+            let flet_num_text = document.createTextNode(flet_num);
+            num_cell.appendChild(flet_num_text);
+            num_row.appendChild(num_cell);
+          }
+          tblBody.appendChild(num_row);
+          tbl.appendChild(tblBody);
+          tbl.classList.add('mr-1');
+          tbl.classList.add('bg-flet');
+
+          let aElement = document.getElementById("test2");
+          aElement.appendChild(tbl);
 
             //区切り  
             // let part = document.createElement("p");
