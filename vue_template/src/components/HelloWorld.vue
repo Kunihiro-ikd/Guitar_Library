@@ -120,12 +120,6 @@ export default {
       console.log('clicked');
     },
     makeCode(list_test) {
-      // const  first_string  = string1;
-      // const  second_string = string2;
-      // const  third_string  = string3;
-      // const  fourth_string = string4;
-      // const  fifth_string  = string5;
-      // const  sixth_string  = string6;
       const all_strings   = strings;
 
       // const  got_codes = [[13, 17, 18], [25, 29, 30], [37, 41, 42]];
@@ -138,26 +132,25 @@ export default {
         let root = got_codes[num1][0];
 
          //all_strings のデータからコードになりうるデータを探す
-         // 弦
-        for (let num2 = 0; num2<6; num2++) {
-          for (let num3 = 0; num3<all_strings[0].length; num3++) {
-              let searching_flet = all_strings[num2][num3];
-              if (root == searching_flet) {
-                let code_comp = [];
-                code_comp.push([num2, num3]);
-                //弦
-                for(let num4_second = num2 - 1; 0 <= num4_second ; num4_second--){
-                //フレット
-                  for(let num5_third = num3; num5_third < num3 + 4; num5_third++){
-                    for(let num6_got_code = 0; num6_got_code < got_codes.length; num6_got_code++){
-                      if(got_codes[num1][num6_got_code] == all_strings[num4_second][num5_third]){
-                        code_comp.push([num4_second, num5_third]);
-                      }
+        for (let num2 = 0; num2 < 6; num2++) {
+          for (let num3 = 0; num3 < all_strings[0].length; num3++) {
+            let searching_flet = all_strings[num2][num3];
+            if (root == searching_flet) {
+              let code_comp = [];
+              code_comp.push([num2, num3]);
+              //弦
+              for(let num4_second = num2 - 1; 0 <= num4_second ; num4_second--){
+              //フレット
+                for(let num5_third = num3; num5_third < num3 + 4; num5_third++){
+                  for(let num6_got_code = 0; num6_got_code < got_codes.length; num6_got_code++){
+                    if(got_codes[num1][num6_got_code] == all_strings[num4_second][num5_third]){
+                      code_comp.push([num4_second, num5_third]);
                     }
                   }
                 }
-                all_code_component.push(code_comp);
               }
+              all_code_component.push(code_comp);
+            }
            }
         }
       }
@@ -173,16 +166,13 @@ export default {
 
     makeCodeHtmlGuitar(cell_id) {
       //前のコードの削除
-      console.log('aasdfas');
-      console.log(cell_id);
       let previus_dlement = document.getElementById("test2");
-
       if (previus_dlement !== null) {
         while (previus_dlement.firstChild) {
             previus_dlement.removeChild(previus_dlement.firstChild);
         }
       }
-      
+
        //クリックされたセルのid の設定
       let set_string = -1;
       let set_flet   = -1;
@@ -203,27 +193,30 @@ export default {
       
       for(let got_code = 0; got_code < got_codes_list.length; got_code++){
 
-          //flet の最大値最小値の取得
-          let flet_max = 0;
-          let flet_min = 20;
-          let string_list = [0, 0, 0, 0, 0, 0];
-          for(let got_code_flet = 0; got_code_flet < got_codes_list[got_code].length; got_code_flet++){
-              if(got_codes_list[got_code][got_code_flet][1] < flet_min){
-                  flet_min = got_codes_list[got_code][got_code_flet][1];
-              }
-              if(got_codes_list[got_code][got_code_flet][1] > flet_max){
-                  flet_max = got_codes_list[got_code][got_code_flet][1];
-              }
-              
-              //string
-              for(let got_code_string = 0; got_code_string < got_codes_list[got_code].length; got_code_string++){
-                  let string_num_exist = got_codes_list[got_code][got_code_flet][0];
-                  string_list[string_num_exist] = 1;
-              }
-          }
+        //flet の最大値最小値の取得
+        let flet_max = 0;
+        let flet_min = 20;
+        let string_list = [0, 0, 0, 0, 0, 0];
+        for(let got_code_flet = 0; got_code_flet < got_codes_list[got_code].length; got_code_flet++){
+            if(got_codes_list[got_code][got_code_flet][1] < flet_min){
+                flet_min = got_codes_list[got_code][got_code_flet][1];
+            }
+            if(got_codes_list[got_code][got_code_flet][1] > flet_max){
+                flet_max = got_codes_list[got_code][got_code_flet][1];
+            }
+            
+            //string
+            for(let got_code_string = 0; got_code_string < got_codes_list[got_code].length; got_code_string++){
+                let string_num_exist = got_codes_list[got_code][got_code_flet][0];
+                string_list[string_num_exist] = 1;
+            }
+        }
 
           let tbl = document.createElement("table");
           let tblBody = document.createElement("tbody");
+
+          tbl.style.display = "inline-block"
+          tbl.classList.add("one_code")
 
           // console.log('flet_max', flet_max, 'flet_min', flet_min);
           for (let i = 0; i < 6; i++) {
