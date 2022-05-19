@@ -28,6 +28,7 @@ export default {
       }
     },
     mounted() {
+      console.log('mounted');
       let code_component = this.code_configure;
       //flet の最大値最小値の取得
       let flet_max = 0;
@@ -113,11 +114,8 @@ export default {
       let text1 = document.createTextNode("Another paragraph, yay!");
       wrap_code.appendChild(text1);
       // aElement.appendChild(wrap_code);
-      console.log(aElement);
       console.log('oneCode' + this.code_num);
 
-
-      
 
 
       // let code = document.createElement('div');
@@ -127,6 +125,28 @@ export default {
       let child = document.createElement("p");
       child.classList.add('bg-danger');
       testA.appendChild(child);
+    },
+    methods: {
+      add() {
+      console.log('add')
+      },
+      addList() {
+        this.list2.push({ name: 'addList', id: this.counter });
+        this.counter++;
+      },
+      replace() {
+        console.log('replace')
+      },
+      checkMove(event) {
+        console.log('checkMove', event.draggedContext)
+        console.log('Future index: ' + event.draggedContext.futureIndex)
+      },
+      log(event) {
+        const { moved, added } = event
+
+        if (moved) console.log('moved', moved)
+        if (added) console.log('added', added, added.element)
+      },
     }
 }
 

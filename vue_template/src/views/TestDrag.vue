@@ -6,17 +6,17 @@
           <div id="test1" class="col-12"></div>
 
         <div class="col-12">
-          <h3>draggle </h3>
+          <h3 >draggle </h3>
           <div class="container">
             <draggable
-              class="dragArea w-full bg-pink row flex-nowrap overflow-auto"
+              class="dragArea bg-pink row flex-nowrap overflow-auto"
               :list="list1"
               :group="{ name: 'people', pull: 'clone', put: false }"
               :sort="true"
               @change="log"
               :move="checkMove"
             >
-            <template v-for="(code, index) in list1" :key="code" >
+            <div class="col-auto" v-for="(code, index) in list1" :key="code" >
                 <oneCode
                   :code_configure="code"
                   :code_num="index"
@@ -24,7 +24,7 @@
                 >
                 {{index}}
                 </oneCode>
-            </template>
+            </div>
             <div>
             </div>
   
@@ -40,29 +40,24 @@
             </draggable>
           </div>
           <h3>drag accept</h3>
+          <!-- pickOneCode -->
           <draggable
-            class="dragArea list-group w-full"
+            class="dragArea bg-pink row flex-nowrap overflow-auto"
             :list="list2"
             group="people"
             @change="log"
             :move="checkMove"
           >
-          <pickOneCode
-              v-for="code, index in list2"
-              :key="code"
-              :code_configure="code"
-              :code_num="index"
-            >
-            </pickOneCode>
+          <div class="col-auto" v-for="(code, index) in list2" :key="code" >
+                <pickOneCode
+                  :code_configure="code"
+                  :code_num="index"
+                  class="col-auto"
+                >
+                {{index}}
+                </pickOneCode>
+            </div>
           
-            <!-- <div
-              :id="index"
-              class="list-group-item bg-gray-300 m-1 p-3 rounded-md text-center"
-              v-for="element, index in list2"
-              :key="element.name"
-            >
-              {{ element.name }}
-            </div> -->
           </draggable>
 
         </div>
@@ -92,20 +87,20 @@ import { defineComponent } from 'vue'
 import { VueDraggableNext } from 'vue-draggable-next'
 import oneCode from '../components/oneCode.vue'
 import pickOneCode from '../components/oneCode.vue'
-  const string1 = [[0,0],[0,1],[0,2],[0,3],[0,4],[0,5],[0,6],[0,7],[0,8],[0,9],[0,10],[0,11],[0,12],[0,13],[0,14],[0,15],[0,16],[0,17],[0,18],[0,19],[0,20]];
-  const string2 = [[1,0],[1,1],[1,2],[1,3],[1,4],[1,5],[1,6],[1,7],[1,8],[1,9],[1,10],[1,11],[1,12],[1,13],[1,14],[1,15],[1,16],[1,17],[1,18],[1,19],[1,20]];
-  const string3 = [[2,0],[2,1],[2,2],[2,3],[2,4],[2,5],[2,6],[2,7],[2,8],[2,9],[2,10],[2,11],[2,12],[2,13],[2,14],[2,15],[2,16],[2,17],[2,18],[2,19],[2,20]];
-  const string4 = [[3,0],[3,1],[3,2],[3,3],[3,4],[3,5],[3,6],[3,7],[3,8],[3,9],[3,10],[3,11],[3,12],[3,13],[3,14],[3,15],[3,16],[3,17],[3,18],[3,19],[3,20]];
-  const string5 = [[4,0],[4,1],[4,2],[4,3],[4,4],[4,5],[4,6],[4,7],[4,8],[4,9],[4,10],[4,11],[4,12],[4,13],[4,14],[4,15],[4,16],[4,17],[4,18],[4,19],[4,20]];
-  const string6 = [[5,0],[5,1],[5,2],[5,3],[5,4],[5,5],[5,6],[5,7],[5,8],[5,9],[5,10],[5,11],[5,12],[5,13],[5,14],[5,15],[5,16],[5,17],[5,18],[5,19],[5,20]];
-  const strings = [
-      string1,
-      string2,
-      string3,
-      string4,
-      string5,
-      string6,
-  ];
+const string1 = [[0,0],[0,1],[0,2],[0,3],[0,4],[0,5],[0,6],[0,7],[0,8],[0,9],[0,10],[0,11],[0,12],[0,13],[0,14],[0,15],[0,16],[0,17],[0,18],[0,19],[0,20]];
+const string2 = [[1,0],[1,1],[1,2],[1,3],[1,4],[1,5],[1,6],[1,7],[1,8],[1,9],[1,10],[1,11],[1,12],[1,13],[1,14],[1,15],[1,16],[1,17],[1,18],[1,19],[1,20]];
+const string3 = [[2,0],[2,1],[2,2],[2,3],[2,4],[2,5],[2,6],[2,7],[2,8],[2,9],[2,10],[2,11],[2,12],[2,13],[2,14],[2,15],[2,16],[2,17],[2,18],[2,19],[2,20]];
+const string4 = [[3,0],[3,1],[3,2],[3,3],[3,4],[3,5],[3,6],[3,7],[3,8],[3,9],[3,10],[3,11],[3,12],[3,13],[3,14],[3,15],[3,16],[3,17],[3,18],[3,19],[3,20]];
+const string5 = [[4,0],[4,1],[4,2],[4,3],[4,4],[4,5],[4,6],[4,7],[4,8],[4,9],[4,10],[4,11],[4,12],[4,13],[4,14],[4,15],[4,16],[4,17],[4,18],[4,19],[4,20]];
+const string6 = [[5,0],[5,1],[5,2],[5,3],[5,4],[5,5],[5,6],[5,7],[5,8],[5,9],[5,10],[5,11],[5,12],[5,13],[5,14],[5,15],[5,16],[5,17],[5,18],[5,19],[5,20]];
+const strings = [
+    string1,
+    string2,
+    string3,
+    string4,
+    string5,
+    string6,
+];
 export default defineComponent({
   name: 'TestDraga',
   props: {
@@ -124,6 +119,8 @@ export default defineComponent({
       enabled: true,
       list1: [],
       list2: [
+        { name: 'Joao', id: 2, string: 1, flet: 1, code: [[1,1], [1,1], [1,1], [1,1], [1,1], [1,1] ], code_name: 'major', },
+        { name: 'Joao', id: 2, string: 1, flet: 1, code: [[1,1], [1,1], [1,1], [1,1], [1,1], [1,1] ], code_name: 'major', },
         { name: 'Joao', id: 2, string: 1, flet: 1, code: [[1,1], [1,1], [1,1], [1,1], [1,1], [1,1] ], code_name: 'major', },
       ],
     }
@@ -181,45 +178,6 @@ export default defineComponent({
 
   },
   methods: {
-    showItems() {
-      alert(this.items.map(val => { return val.id }))
-    },
-    // makeCode(list_test) {
-    //   const all_strings   = strings;
-    //   const got_codes = list_test;
-    //   // got_codes = [[13, 17, 18], [25, 29, 30], [37, 41, 42]];
-
-    //   let all_code_component = [];
-
-    //   for (let num1 = 0; num1 < got_codes.length; num1++) {
-    //     let root = got_codes[num1][0];
-
-    //      //all_strings のデータからコードになりうるデータを探す. 例:major)root, 3rd, 5thをピックアップ 
-    //     for (let num2 = 0; num2 < 6; num2++) {
-    //       for (let num3 = 0; num3 < all_strings[0].length; num3++) {
-    //         let searching_flet = all_strings[num2][num3];
-    //         if (root == searching_flet) {
-    //           let code_comp = [];
-    //           code_comp.push([num2, num3]);
-    //           //弦
-    //           for (let num4_second = num2 - 1; 0 <= num4_second ; num4_second--) {
-    //           //フレット
-    //             for (let num5_third = num3; num5_third < num3 + 4; num5_third++) {
-    //               for (let num6_got_code = 0; num6_got_code < got_codes.length; num6_got_code++) {
-    //                 if (got_codes[num1][num6_got_code] == all_strings[num4_second][num5_third]) {
-    //                   code_comp.push([num4_second, num5_third]);
-    //                 }
-    //               }
-    //             }
-    //           }
-    //           all_code_component.push(code_comp);
-    //         }
-    //       }
-    //     }
-    //   }
-    //   return all_code_component;
-    // },
-
   createElement(tag, attr = null, ext = null) {
     var element = document.createElement(tag);
     if (attr !== null) {
@@ -522,18 +480,15 @@ export default defineComponent({
         return result;
         // return all_code_positions;
     },
-    add() {
-      console.log('add')
-    },
-    addList() {
-      this.list1.push({ name: 'addList', id: this.counter });
+   addList() {
+      this.list2.push({ name: 'addList', id: this.counter });
       this.counter++;
     },
     replace() {
       console.log('replace')
     },
     checkMove(event) {
-      console.log('checkMove', event.draggedContext)
+      console.log('checkMove', event.draggedContext);
       console.log('Future index: ' + event.draggedContext.futureIndex)
     },
     log(event) {
@@ -542,7 +497,6 @@ export default defineComponent({
       if (moved) console.log('moved', moved)
       if (added) console.log('added', added, added.element)
     },
-
   }
 })
 </script>
