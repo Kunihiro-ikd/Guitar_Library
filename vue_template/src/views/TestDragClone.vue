@@ -37,10 +37,17 @@
           :key="element.name"
         >
           {{ element.name }}
+          <getCodeComponent
+            :getList="element"
+            :test="element.name"
+          >
+          aaa
+          </getCodeComponent>
         </div>
       </draggable>
     </div>
     <div id="test2"></div>
+    <div>{{ list1 }}</div>
 
 
   </div>
@@ -48,33 +55,27 @@
 
 <script>
 import { VueDraggableNext } from 'vue-draggable-next'
+import getCode from '../components/getCode.vue'
 const string1 = [[0,0],[0,1],[0,2],[0,3],[0,4],[0,5],[0,6],[0,7],[0,8],[0,9],[0,10],[0,11],[0,12],[0,13],[0,14],[0,15],[0,16],[0,17],[0,18],[0,19],[0,20]];
 const string2 = [[1,0],[1,1],[1,2],[1,3],[1,4],[1,5],[1,6],[1,7],[1,8],[1,9],[1,10],[1,11],[1,12],[1,13],[1,14],[1,15],[1,16],[1,17],[1,18],[1,19],[1,20]];
 const string3 = [[2,0],[2,1],[2,2],[2,3],[2,4],[2,5],[2,6],[2,7],[2,8],[2,9],[2,10],[2,11],[2,12],[2,13],[2,14],[2,15],[2,16],[2,17],[2,18],[2,19],[2,20]];
 const string4 = [[3,0],[3,1],[3,2],[3,3],[3,4],[3,5],[3,6],[3,7],[3,8],[3,9],[3,10],[3,11],[3,12],[3,13],[3,14],[3,15],[3,16],[3,17],[3,18],[3,19],[3,20]];
 const string5 = [[4,0],[4,1],[4,2],[4,3],[4,4],[4,5],[4,6],[4,7],[4,8],[4,9],[4,10],[4,11],[4,12],[4,13],[4,14],[4,15],[4,16],[4,17],[4,18],[4,19],[4,20]];
 const string6 = [[5,0],[5,1],[5,2],[5,3],[5,4],[5,5],[5,6],[5,7],[5,8],[5,9],[5,10],[5,11],[5,12],[5,13],[5,14],[5,15],[5,16],[5,17],[5,18],[5,19],[5,20]];
-const strings = [
-    string1,
-    string2,
-    string3,
-    string4,
-    string5,
-    string6,
-];
+const strings = [ string1, string2, string3, string4, string5, string6 ];
+
 export default {
   name: "cloneDrag",
   order: 2,
   components: {
     draggable: VueDraggableNext,
+    getCodeComponent: getCode,
   },
   data() {
     return {
       list1: [],
       list2: [
-        { name: "Juan", id: 5 },
-        { name: "Edgard", id: 6 },
-        { name: "Johnson", id: 7 }
+        { "name": "Code1", "id": 100, "code": [ [ 0, 8 ], [ 1, 8 ], [ 2, 12 ], [ 3, 10 ], [], [] ], "code_id": "180e45c8e1dCode1" },
       ],
       codeCombination: [],
       code_num: 0,
@@ -82,9 +83,9 @@ export default {
     };
   },
   watch: {
-    list1() {
-      console.log('list1変化');
-    }
+    // list1() {
+    //   console.log('list1変化');
+    // }
   },
   updated() {
     this.$nextTick(() => {
@@ -167,10 +168,13 @@ export default {
       let got_codes_list = this.allGuitarCodeList(root_sound, 'major');
       this.couter_made_code = got_codes_list;
 
+      const getDate = new Date();
+      let random_id = getDate.getTime().toString(16);
+
       //dragAndDropの初期化・追加
       this.list1 = [];
       for (let i = 0; i < got_codes_list.length; i++) {
-        this.list1.push({ name: 'Code' + i, id: 100, code: got_codes_list[i], })
+        this.list1.push({ name: 'Code' + i, id: 100, code: got_codes_list[i], code_id: random_id + 'Code' + i});
       }
       this.codeCombination = got_codes_list;
     },
@@ -370,12 +374,6 @@ export default {
       console.log('checkMove', event.draggedContext);
       console.log('Future index: ' + event.draggedContext.futureIndex)
     },
-    // log(event) {
-    //   const { moved, added } = event
-
-    //   if (moved) console.log('moved', moved)
-    //   if (added) console.log('added', added, added.element)
-    // },
     makeCode(code_configure, code_num) {
       console.log('makecCode!!!!');
 
@@ -463,7 +461,8 @@ export default {
       aElement.appendChild(tbl);
     },
     log() {
-      console.log('log')
+      console.log('log');
+
     },
     endDrag() {
       console.log('update');

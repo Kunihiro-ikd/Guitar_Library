@@ -1,10 +1,11 @@
 <template>
-<!-- 参考 https://codesandbox.io/examples/package/vuedraggable -->
-    <div class="row">
-          <div id="oneCode1" class="border">
-            <div :id="'code' + code_num" ></div>
-          </div>
+  <!-- 参考 https://codesandbox.io/examples/package/vuedraggable -->
+  <div class="row">
+    <div id="oneCode1" class="border">
+      <div :id="'code' + code_num" ></div>
+      <div class="bg-primary">aaa</div>
     </div>
+  </div>
 </template>
 <script>
 const code_combination_relative_number ={0: 'C', 1: 'C#', 2: 'D', 3: 'D#', 4: 'E', 5: 'F', 6: 'F#', 7: 'G', 8: 'G#', 9: 'A', 10: 'A#', 11: 'B'};
@@ -22,14 +23,15 @@ export default {
         default: () => (0)
       }
     },
-      data() {
+    data() {
       return {
         counter: 0
       }
     },
     mounted() {
       console.log('mounted');
-      let code_component = this.code_configure;
+      console.log(this.code_configure.code);
+      let code_component = this.code_configure.code;
       //flet の最大値最小値の取得
       let flet_max = 0;
       let flet_min = 20;
@@ -83,7 +85,7 @@ export default {
         tblBody.appendChild(row);
       }
 
-            //flet の番号
+      //flet の番号
       let num_row = document.createElement("tr");
       for (let flet_num = flet_min; flet_num <= flet_max; flet_num ++) {
         let num_cell = document.createElement("td");
@@ -99,55 +101,27 @@ export default {
       tbl.classList.add('bg-flet');
 
       // TODO ここにclassを入れる。追加
-      let bElement = document.getElementById('code' + this.code_num);
+      let bElement = document.getElementById(this.code_configure.code_id);
       let text2 = document.createElement('div');
       let text3 = document.createTextNode(this.code_configure.name);
       text2.appendChild(text3);
       bElement.appendChild(text2);
 
 
-      let aElement = document.getElementById('code' + this.code_num);
+      let aElement = document.getElementById(this.code_configure.code_id);
       aElement.appendChild(tbl);
 
       let wrap_code = document.createElement('div');
       wrap_code.id  = 'oneCode' + this.code_num;
       let text1 = document.createTextNode("Another paragraph, yay!");
       wrap_code.appendChild(text1);
-      // aElement.appendChild(wrap_code);
       console.log('oneCode' + this.code_num);
 
-
-
-      // let code = document.createElement('div');
-      // code.id  = 
-
-      let testA = document.getElementById("oneCode1");
+      let testA = document.getElementById(this.code_configure.code_id);
       let child = document.createElement("p");
       child.classList.add('bg-danger');
       testA.appendChild(child);
     },
-    methods: {
-      add() {
-      console.log('add')
-      },
-      addList() {
-        this.list2.push({ name: 'addList', id: this.counter });
-        this.counter++;
-      },
-      replace() {
-        console.log('replace')
-      },
-      checkMove(event) {
-        console.log('checkMove', event.draggedContext)
-        console.log('Future index: ' + event.draggedContext.futureIndex)
-      },
-      log(event) {
-        const { moved, added } = event
-
-        if (moved) console.log('moved', moved)
-        if (added) console.log('added', added, added.element)
-      },
-    }
 }
 
 </script>
