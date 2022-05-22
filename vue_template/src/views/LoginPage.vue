@@ -6,7 +6,7 @@
       <input v-model="password" placeholder="password">
     </form>
     <button @click="loginCheck">ボタン</button>
-    <div class="bg-red">input:{{ message }}</div>
+    <div class="bg-red">success:{{ success }}</div>
   </div>
 </template>
 <script>
@@ -21,19 +21,21 @@ export default {
     return {
        login: '',
        password: '',
+       success: 0,
     }
   },
   methods: {
     loginCheck() {
       const data = {'login': this.login, 'password': this.password};
-      axios.post('/testA/login', data)
+      axios.post('/login', data)
       .then((response) => {
-        console.log(response);
+        console.log(response.data);
+        this.success = response;
         console.log('response');
       })
       .catch(error => {
         console.log(111111);
-        console.log(error);
+        console.log(     error);
       })
 
     },

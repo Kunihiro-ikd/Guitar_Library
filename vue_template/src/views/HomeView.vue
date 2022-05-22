@@ -6,6 +6,7 @@
     </div>
     <img alt="Vue logo" src="../assets/logo.png">
     <HelloWorld msg="Welcome to Your Vue.js App"/>
+    
   </div>
 </template>
 
@@ -19,11 +20,15 @@ export default {
   components: {
     HelloWorld
   },
+  setup() {
+    return {
+    }
+  },
   methods: {
     getProducts() {
       const data = {'test1': 1, 'test2': 2};
-      axios.get('/', data)
-      .then((response) => {
+      axios.post('/', data)
+      .then(response => {
         console.log(response);
         console.log('clicked');
       })

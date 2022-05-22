@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, Flask
+from flask import Blueprint, render_template, request, Flask, session
 import logging
 
 from sqlalchemy import create_engine, Column, Integer, String ,Text
@@ -15,7 +15,7 @@ from models.database import db
 
 db = declarative_base()
 
-apiTest = Blueprint('testA', __name__, url_prefix='/testA')
+apiTest = Blueprint('testA', __name__, url_prefix='')
 
 app = Flask(__name__)
 LOGFILE_NAME = 'flask.log'
@@ -31,13 +31,28 @@ def hello():
 
 @apiTest.route('/login',  methods=["POST"])
 def login():
+    # app.logger.info('aaaaaa')
+    # app.logger.info(request.get_json()['login'])
+    # app.logger.info(result)
+    result = User.query.filter_by(login=request.get_json()['login']).all()
+    userName = session.get('userName')
     app.logger.info('aaaaaa')
-    app.logger.info(request.get_json()['login'])
-    result = User.query.filter_by(login='ikeda').all()
-    app.logger.info(result)
+    app.logger.info(userName)
+    session['userName'] = request.get_json()['login']
+
     if result:
-        return render_template(''){'login': 1}
-    return {'login': 0}
+        response = {'success': 1, 'user': userName}
+        return response
+        # トークンを入れる
+    response = {'success': 0, 'user': userName}
+    return response
+
+@apiTest.route('/logout')
+def logout():
+    session.pop('username', None)
+    response = {}
+    return response
+
     # Session = sessionmaker(bind=config.DevelopmentConfig.SQLALCHEMY_DATABASE_URI)
     # db_session = Session()
     # text = request.get_json()['login']

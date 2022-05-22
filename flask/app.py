@@ -11,6 +11,8 @@ app = Flask(__name__, static_folder='../vue_template/dist/static', template_fold
 app.config.from_object('config.Config')
 # 参考 https://qiita.com/shirakiya/items/0114d51e9c189658002e
 init_db(app)
+# セッション
+app.secret_key = 'hogehoge'
 
 
 # https://qiita.com/KWS_0901/items/7163e52b4041b909f5bc
