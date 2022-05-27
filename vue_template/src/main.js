@@ -2,8 +2,8 @@ import {createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
-import axios from 'axios' // 追加します。
-import VueAxios from 'vue-axios' // 追加します。
+import axios from 'axios' 
+import VueAxios from 'vue-axios'
 
 // // bootstrap
 import "bootstrap/dist/css/bootstrap.min.css"
