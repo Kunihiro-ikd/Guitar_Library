@@ -1,19 +1,27 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
-import LoginPage from '../views/LoginPage.vue'
-import TestDrag from '../views/TestDrag.vue'
-import TestDragClone from '../views/TestDragClone.vue'
+import HomeView from '../views/demo/HomeView.vue'
+import LoginPage from '../views/demo/LoginPage.vue'
+import DemoDrag from '../views/demo/DemoDrag.vue'
+import DemoDragClone from '../views/demo/DemoDragClone.vue'
+
+import store from '../store/index.js'
 
 const routes = [
   {
     path: '/login',
     name: 'login',
     component: LoginPage,
+    meta: {
+      isPublic: true
+    }
   },
   {
     path: '/',
     name: 'home',
-    component: HomeView
+    component: HomeView,
+    meta: {
+      isPublic: true
+    }
   },
   {
     path: '/about',
@@ -26,12 +34,12 @@ const routes = [
   {
     path: '/test',
     name: 'TestDrag',
-    component: TestDrag
+    component: DemoDrag
   },
   {
-    path: '/testClone',
+    path: '/demo/create',
     name: 'TestDragClone',
-    component: TestDragClone
+    component: DemoDragClone
   },
 
 ]
@@ -39,6 +47,30 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes,
+})
+
+
+router.beforeEach((to, from, next) => {
+  console.log('store!!!');
+  console.log(store);
+  if (to.meta.isPublic) {
+    console.log('router 誰でもアクセス可能');
+    next()
+  } else if (!to.meta.isPublic) {
+    next()
+  }
+  // } else if (!to.meta.isPublic && localStorage.accessToken) {
+  //   console.log('router ログイン必要 遷移可能');
+  //   next()
+  // } else if (!to.meta.isPublic && !localStorage.accessToken) {
+  //   console.log('router ログイン必要 遷移不可');
+  //   next('/login')
+  // }
+  // if (to.matched.some(page => page.meta.isPublic) || Store.state.auth.token) {
+  //   next()
+  // } else {
+  //   next('/login')
+  // }
 })
 
 export default router
