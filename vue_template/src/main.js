@@ -9,5 +9,12 @@ import VueAxios from 'vue-axios'
 import "bootstrap/dist/css/bootstrap.min.css"
 require("./assets/style/main.scss"); 
 
-createApp(App).use(store).use(router)
+const app = createApp(App);
+
+// app.config.compilerOptions.isCustomElement = tag => tag.startsWith('vue-')
+// app.config.compilerOptions.isCustomElement = tag => tag.startsWith('dra-')
+// app.config.compilerOptions.isCustomElement = tag => tag.startsWith('-')
+
+app.use(store).use(router)
     .use(VueAxios, axios).mount('#app')
+

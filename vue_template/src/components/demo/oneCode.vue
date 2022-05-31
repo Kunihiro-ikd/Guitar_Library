@@ -10,8 +10,6 @@
 <script>
 const code_combination_relative_number ={0: 'C', 1: 'C#', 2: 'D', 3: 'D#', 4: 'E', 5: 'F', 6: 'F#', 7: 'G', 8: 'G#', 9: 'A', 10: 'A#', 11: 'B'};
 console.log(code_combination_relative_number);
-// const code_combination_relative_number ={'C': 0, 'C#': 1, 'D': 2, 'D#': 3, 'E': 4, 'F': 5, 'F#': 6, 'G': 7, 'G#': 8, 'A': 9, 'A#': 10, 'B': 11};
-// console.log(code_combination_relative_number,code_combination_relative_number);
 export default {
     props: {
       code_configure: {
@@ -36,17 +34,17 @@ export default {
       let flet_max = 0;
       let flet_min = 20;
       let string_list = [0, 0, 0, 0, 0, 0];
-      for (let got_code_flet = 0; got_code_flet < code_component.code.length; got_code_flet++) {
-        if (code_component.code[got_code_flet][1] < flet_min) {
-          flet_min = code_component.code[got_code_flet][1];
+      for (let got_code_flet = 0; got_code_flet < code_component.length; got_code_flet++) {
+        if (code_component[got_code_flet][1] < flet_min) {
+          flet_min = code_component[got_code_flet][1];
         }
-        if (code_component.code[got_code_flet][1] > flet_max) {
-          flet_max = code_component.code[got_code_flet][1];
+        if (code_component[got_code_flet][1] > flet_max) {
+          flet_max = code_component[got_code_flet][1];
         }
 
         //string
-        for(let got_code_string = 0; got_code_string < code_component.code.length; got_code_string++){
-          let string_num_exist = code_component.code[got_code_flet][0];
+        for(let got_code_string = 0; got_code_string < code_component.length; got_code_string++){
+          let string_num_exist = code_component[got_code_flet][0];
           string_list[string_num_exist] = 1;
         }
       }
@@ -69,10 +67,10 @@ export default {
           cell.id = "st" + i + j;
           cell.href = "";
           let cellText = document.createTextNode("-");
-          for(let got_code_content = 0; got_code_content < code_component.code.length; got_code_content++){
+          for(let got_code_content = 0; got_code_content < code_component.length; got_code_content++){
             if (string_list[i] == 0) {
               row.classList.add("guitar-cell-off");
-            } else if (code_component.code[got_code_content][0] == i && code_component.code[got_code_content][1] == j){
+            } else if (code_component[got_code_content][0] == i && code_component[got_code_content][1] == j){
               div.classList.add("bg-primary");
               cellText = document.createTextNode("●")
             }

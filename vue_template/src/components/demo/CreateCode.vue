@@ -1,8 +1,9 @@
 <template>
-  <div class="row">
+    <div class="row">
     <div id="test1" class="col-12"></div>
     <div class="col-12 container">
       <h3>Draggable </h3>
+      <button @click="logout" class="bg-primary">ログアウト</button>
 
       <draggable
         class="dragArea row  flex-nowrap overflow-auto"
@@ -51,14 +52,14 @@
     </div>
     <div id="test2"></div>
     <div>{{ list1 }}</div>
-
-  </div>
+    </div>
 </template>
-
 <script>
-import { VueDraggableNext } from 'vue-draggable-next'
-import getCode from '../components/getCode.vue'
+import getCode from '../../components/getCode.vue'
+import VueDraggableNext from 'vue-draggable-next'
 import axios from 'axios';
+import router from '../../router/index.js';
+import { defineComponent } from 'vue'
 
 const string1 = [[0,0],[0,1],[0,2],[0,3],[0,4],[0,5],[0,6],[0,7],[0,8],[0,9],[0,10],[0,11],[0,12],[0,13],[0,14],[0,15],[0,16],[0,17],[0,18],[0,19],[0,20]];
 const string2 = [[1,0],[1,1],[1,2],[1,3],[1,4],[1,5],[1,6],[1,7],[1,8],[1,9],[1,10],[1,11],[1,12],[1,13],[1,14],[1,15],[1,16],[1,17],[1,18],[1,19],[1,20]];
@@ -68,85 +69,82 @@ const string5 = [[4,0],[4,1],[4,2],[4,3],[4,4],[4,5],[4,6],[4,7],[4,8],[4,9],[4,
 const string6 = [[5,0],[5,1],[5,2],[5,3],[5,4],[5,5],[5,6],[5,7],[5,8],[5,9],[5,10],[5,11],[5,12],[5,13],[5,14],[5,15],[5,16],[5,17],[5,18],[5,19],[5,20]];
 const strings = [ string1, string2, string3, string4, string5, string6 ];
 
-export default {
-  name: "cloneDrag",
-  order: 2,
-  components: {
-    draggable: VueDraggableNext,
-    getCodeComponent: getCode,
-  },
-  data() {
-    return {
-      list1: [],
-      list2: [
-        { "name": "Code1", "id": 100, "code": [ [ 0, 8 ], [ 1, 8 ], [ 2, 12 ], [ 3, 10 ], [], [] ], "code_id": "180e45c8e1dCode1" },
-      ],
-      codeCombination: [],
-      code_num: 0,
-      couter_made_code: 0,
-    };
-  },
-  watch: {
-    // list1() {
-    //   console.log('list1変化');
-    // }
-  },
-  updated() {
-    this.$nextTick(() => {
-      for(let i = 0; i < this.codeCombination.length; i++) {
-        this.makeCode(this.codeCombination[i], i);
-      }
-    })
-  },
-  mounted() {
-    let tbl     = document.createElement("table");
-    let tblBody = document.createElement("tbody");
+  export default defineComponent ({
+    name: 'CreateCode',
+    components:{
+      getCodeComponent: getCode,
+      draggable: VueDraggableNext,
+    },
+    data() {
+      return {
+        list1: [],
+        list2: [
+            { "name": "Code1", "id": 100, "code": [ [ 0, 8 ], [ 1, 8 ], [ 2, 12 ], [ 3, 10 ], [], [] ], "code_id": "180e45c8e1dCode1" },
+        ],
+        codeCombination: [],
+        code_num: 0,
+        couter_made_code: 0,
+        };
+    },
+    mounted() {
+        let tbl     = document.createElement("table");
+        let tblBody = document.createElement("tbody");
 
-    tbl.style.display = "inline-block"
-    tbl.classList.add("one_code")
+        tbl.style.display = "inline-block"
+        tbl.classList.add("one_code")
 
-    for (let i = 0; i < 6; i++) {
-      let row = document.createElement("tr");
+        for (let i = 0; i < 6; i++) {
+        let row = document.createElement("tr");
 
-      for (let j = 0; j < 15; j++) {
-        let cell = document.createElement("td");
-        let div  = document.createElement("div");
-        div.classList.add("guitar_table_point");
-        let cellText = document.createTextNode("a");
+        for (let j = 0; j < 15; j++) {
+            let cell = document.createElement("td");
+            let div  = document.createElement("div");
+            div.classList.add("guitar_table_point");
+            let cellText = document.createTextNode("a");
 
-        //各cell の td に入れる id を作成
-        cell.id     = "sf" + i + j;
-        let cell_id = "sf" + i + j;
-        cell.href   = "";
-        div.appendChild(cellText);
-        cell.appendChild(div);
+            //各cell の td に入れる id を作成
+            cell.id     = "sf" + i + j;
+            let cell_id = "sf" + i + j;
+            cell.href   = "";
+            div.appendChild(cellText);
+            cell.appendChild(div);
 
-        // セルをクリックした時、関数が動く
-        cell.addEventListener("click", this.makeCodeHtmlGuitar.bind(cell_id), false);
-        row.appendChild(cell);
-      }
+            // セルをクリックした時、関数が動く
+            cell.addEventListener("click", this.makeCodeHtmlGuitar.bind(cell_id), false);
+            row.appendChild(cell);
+        }
 
-      tblBody.appendChild(row);
-      tblBody.classList.add("guitar-cell");
-    }
+        tblBody.appendChild(row);
+        tblBody.classList.add("guitar-cell");
+        }
 
-    //flet の序数
-    let row_flet_num = document.createElement("tr");
+        //flet の序数
+        let row_flet_num = document.createElement("tr");
 
-    for (let k = 0; k < 15; k++) {
-      let cell_flet_num = document.createElement("td");
-      let flet_num_text = document.createTextNode(k);
-      cell_flet_num.appendChild(flet_num_text);
-      row_flet_num.appendChild(cell_flet_num);
-    }
+        for (let k = 0; k < 15; k++) {
+        let cell_flet_num = document.createElement("td");
+        let flet_num_text = document.createTextNode(k);
+        cell_flet_num.appendChild(flet_num_text);
+        row_flet_num.appendChild(cell_flet_num);
+        }
 
-    tblBody.appendChild(row_flet_num);
-    tbl.appendChild(tblBody);
-    let aElement = document.getElementById("test1");
-    aElement.appendChild(tbl);
-  },
-
-  methods: {
+        tblBody.appendChild(row_flet_num);
+        tbl.appendChild(tblBody);
+        let aElement = document.getElementById("test1");
+        aElement.appendChild(tbl);
+    },
+     methods: {
+      logout() {
+        const data = {};
+        axios.post('/logout', data)
+        .then(() => {
+          localStorage.removeItem("accessToken");
+          router.push('/login')
+        })
+        .catch(error => {
+          console.log(error);
+        })
+      },
     //初期化用
     codeInitialization() {
       let previus_dlement = document.getElementById("draggaleCreateCode");
@@ -227,7 +225,6 @@ export default {
           if (judge_code_component) {
             all_code_positions[a_search_string].push(all_string_flet_list[a_search_string][a_search_flet]);
           }
-
         }
       }
       
@@ -239,7 +236,7 @@ export default {
     },
 
     absoluteSoundNum(root_position) {
-      // const root        = 12;
+      // レギュラーチューン 6弦0フレットを 12とする
       const string_root = root_position[0];
       const flet_root   = root_position[1];
 
@@ -267,7 +264,8 @@ export default {
       }
       return absoluteSoundNum_result;
     },
-
+    
+    // デバック用
     showSound(showSound) {
       let sound_list = ['E','F','F#','G','G#','A','A#','B','C','C#','D','D#'];
       return showSound,sound_list[showSound];
@@ -477,10 +475,9 @@ export default {
       .catch(error => {
         console.log(error);
       })
-    }
-
-
+    },
   }
-};
+
+  })
+
 </script>
-<style scoped></style>
