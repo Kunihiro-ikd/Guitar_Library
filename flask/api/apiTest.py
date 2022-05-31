@@ -5,7 +5,7 @@ from sqlalchemy import create_engine, Column, Integer, String ,Text
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm.exc import NoResultFound
-import cryptography
+# import cryptography
 
 # 認証 https://fabeee.co.jp/column/employee-blog/mattsun01/
 from fastapi import Depends, HTTPException
@@ -46,42 +46,47 @@ refresh_payload = {
     'exp': datetime.utcnow() + timedelta(days=90),
 }
 
+# セッションの保存時間
+app.permanent_session_lifetime = timedelta(minutes=10)
 
-@apiTest.route('/')
-def hello():
-    result = 'testAのレスポンス'
-    return result
+# @apiTest.route('/')
+# def hello():
+#     result = 'testAのレスポンス'
+#     return result
 
 @apiTest.route('/login',  methods=["POST"])
 def login():
-    # app.logger.info(request.get_json()['login'])
-    # user = User.query.filter_by(login=request.get_json()['login']).all()
-    user = User.where(User.login == request.get_json()['login']).all()
+    user = User.query.filter_by(login=request.get_json()['login']).first()
     userName = session.get('userName')
-    app.logger.info(userName)
 
     # セッション 必要あれば
     session['userName'] = request.get_json()['login']
 
     if user and request.get_json()['password'] == user.password:
         # トークンの発行
+        print('ログイン')
         access_payload['login'] = request.get_json()['login']
-        access_token = jwt.encode(access_payload, 'SECRET_KEY123', algorithm='HS256')
-        result = {'success': 1, 'user': userName, 'access_token': access_token}
+        access_token            = jwt.encode(access_payload, 'SECRET_KEY123', algorithm='HS256')
+        session['access_token'] = access_token
+        result                  = {'success': 1, 'user': userName, 'access_token': access_token}
 
         return result
 
     else:
+        print('ログイン失敗')
+        print(user)
+        print(request.get_json())
         # ログイン失敗
-        raise HTTPException(status_code=401, detail='パスワード不一致')
+        # raise HTTPException(status_code=401, detail='パスワード不一致')
         result = {'success': 0, 'user': userName }
         return result
 
 
-@apiTest.route('/logout')
+@apiTest.route('/logout',  methods=["POST"])
 def logout():
-    session.pop('username', None)
     response = {}
+    session.pop('username', None)
+    session.pop('access_token',None)
     return response
 
     # Session = sessionmaker(bind=config.DevelopmentConfig.SQLALCHEMY_DATABASE_URI)

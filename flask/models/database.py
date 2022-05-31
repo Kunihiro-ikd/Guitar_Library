@@ -13,7 +13,7 @@ db = SQLAlchemy()
 
 def init_db(app):
     db.init_app(app)
-    Migrate(app, db)  # 追加
+    Migrate(app, db)
 
 # engine = create_engine('mysql+pymysql://{ikedak}:{vmdev}@{localhost}/{guitar}?charset=utf8')
 

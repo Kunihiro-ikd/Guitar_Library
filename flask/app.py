@@ -11,18 +11,20 @@ app = Flask(__name__, static_folder='../vue_template/dist/static', template_fold
 app.config.from_object('config.Config')
 # 参考 https://qiita.com/shirakiya/items/0114d51e9c189658002e
 init_db(app)
-# セッション
+
 app.secret_key = 'hogehoge'
 
 
-# https://qiita.com/KWS_0901/items/7163e52b4041b909f5bc
-# log ファイル
+# ログ
 LOGFILE_NAME = 'flask.log'
 app.logger.setLevel(logging.DEBUG)
 log_handler = logging.FileHandler(LOGFILE_NAME)
 log_handler.setLevel(logging.DEBUG)
 app.logger.addHandler(log_handler)
 
+app.config.compilerOptions.isCustomElement = (tag) => {
+  return tag.startsWith('-')
+}
 
 # API
 app.register_blueprint(apiTest)
@@ -30,8 +32,6 @@ app.register_blueprint(apiTest)
 @app.route('/',defaults={'path':''})
 @app.route('/<path:path>')
 def index(path):
-    app.logger.info(request)
-    app.logger.info(type(request))
     return render_template('index.html')
 
 if __name__=='__main__':

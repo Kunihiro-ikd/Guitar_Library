@@ -4,7 +4,7 @@ node_modules
 vue_template/dist
 vue_template/node_modules
 flask/models/__pycache__
-*__pycache__/
+__pycache__/
 flask/migrations
 
 
