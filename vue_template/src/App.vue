@@ -6,6 +6,7 @@
       <router-link to="/about">About</router-link> |
       <router-link to="/test">TestDrag</router-link> |
       <router-link to="/demo/create">TestDragClone</router-link> |
+      <router-link to="/demo/saved_list">TestDragClone</router-link> |
     </nav>
       <router-view />
   </div>

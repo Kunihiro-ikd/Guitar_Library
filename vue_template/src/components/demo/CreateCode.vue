@@ -84,54 +84,54 @@ const strings = [ string1, string2, string3, string4, string5, string6 ];
         codeCombination: [],
         code_num: 0,
         couter_made_code: 0,
-        };
+      };
     },
     mounted() {
-        let tbl     = document.createElement("table");
-        let tblBody = document.createElement("tbody");
+      let tbl     = document.createElement("table");
+      let tblBody = document.createElement("tbody");
 
-        tbl.style.display = "inline-block"
-        tbl.classList.add("one_code")
+      tbl.style.display = "inline-block"
+      tbl.classList.add("one_code")
 
-        for (let i = 0; i < 6; i++) {
+      for (let i = 0; i < 6; i++) {
         let row = document.createElement("tr");
 
         for (let j = 0; j < 15; j++) {
-            let cell = document.createElement("td");
-            let div  = document.createElement("div");
-            div.classList.add("guitar_table_point");
-            let cellText = document.createTextNode("a");
+          let cell = document.createElement("td");
+          let div  = document.createElement("div");
+          div.classList.add("guitar_table_point");
+          let cellText = document.createTextNode("a");
 
-            //各cell の td に入れる id を作成
-            cell.id     = "sf" + i + j;
-            let cell_id = "sf" + i + j;
-            cell.href   = "";
-            div.appendChild(cellText);
-            cell.appendChild(div);
+          //各cell の td に入れる id を作成
+          cell.id     = "sf" + i + j;
+          let cell_id = "sf" + i + j;
+          cell.href   = "";
+          div.appendChild(cellText);
+          cell.appendChild(div);
 
-            // セルをクリックした時、関数が動く
-            cell.addEventListener("click", this.makeCodeHtmlGuitar.bind(cell_id), false);
-            row.appendChild(cell);
+          // セルをクリックした時、関数が動く
+          cell.addEventListener("click", this.makeCodeHtmlGuitar.bind(cell_id), false);
+          row.appendChild(cell);
         }
 
         tblBody.appendChild(row);
         tblBody.classList.add("guitar-cell");
-        }
+      }
 
-        //flet の序数
-        let row_flet_num = document.createElement("tr");
+      //flet の序数
+      let row_flet_num = document.createElement("tr");
 
-        for (let k = 0; k < 15; k++) {
-        let cell_flet_num = document.createElement("td");
-        let flet_num_text = document.createTextNode(k);
-        cell_flet_num.appendChild(flet_num_text);
-        row_flet_num.appendChild(cell_flet_num);
-        }
+      for (let k = 0; k < 15; k++) {
+      let cell_flet_num = document.createElement("td");
+      let flet_num_text = document.createTextNode(k);
+      cell_flet_num.appendChild(flet_num_text);
+      row_flet_num.appendChild(cell_flet_num);
+      }
 
-        tblBody.appendChild(row_flet_num);
-        tbl.appendChild(tblBody);
-        let aElement = document.getElementById("test1");
-        aElement.appendChild(tbl);
+      tblBody.appendChild(row_flet_num);
+      tbl.appendChild(tblBody);
+      let aElement = document.getElementById("test1");
+      aElement.appendChild(tbl);
     },
      methods: {
       logout() {
@@ -148,7 +148,6 @@ const strings = [ string1, string2, string3, string4, string5, string6 ];
     //初期化用
     codeInitialization() {
       let previus_dlement = document.getElementById("draggaleCreateCode");
-
       if (previus_dlement !== null) {
         while (previus_dlement.firstChild) {
           previus_dlement.removeChild(previus_dlement.firstChild);
@@ -468,11 +467,13 @@ const strings = [ string1, string2, string3, string4, string5, string6 ];
     //API ------------------------------------------
     saveCode() {
       const data = this.list2;
-      axios.get('/save-code', data)
+      axios.get('/save_code', data)
       .then((response) => {
+        console.log('save_code!!!');
         console.log(response);
       })
       .catch(error => {
+        console.log('save_code!!!Error!!!');
         console.log(error);
       })
     },

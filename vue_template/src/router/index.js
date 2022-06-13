@@ -3,6 +3,8 @@ import HomeView from '../views/demo/HomeView.vue'
 import LoginPage from '../views/demo/LoginPage.vue'
 import DemoDrag from '../views/demo/DemoDrag.vue'
 import DemoDragClone from '../views/demo/DemoDragClone.vue'
+import DemoSavedList from '../views/demo/DemoSavedList.vue'
+
 
 import store from '../store/index.js'
 
@@ -41,6 +43,11 @@ const routes = [
     name: 'TestDragClone',
     component: DemoDragClone
   },
+  {
+    path: '/demo/saved_list',
+    name: 'DemoSavedList',
+    component: DemoSavedList
+  },
 
 ]
 
@@ -56,21 +63,18 @@ router.beforeEach((to, from, next) => {
   if (to.meta.isPublic) {
     console.log('router 誰でもアクセス可能');
     next()
-  } else if (!to.meta.isPublic) {
+  } else if (!to.meta.isPublic && localStorage.accessToken) {
+    console.log('router ログイン必要 遷移可能');
     next()
+  } else if (!to.meta.isPublic && !localStorage.accessToken) {
+    console.log('router ログイン必要 遷移不可');
+    next('/login')
   }
-  // } else if (!to.meta.isPublic && localStorage.accessToken) {
-  //   console.log('router ログイン必要 遷移可能');
-  //   next()
-  // } else if (!to.meta.isPublic && !localStorage.accessToken) {
-  //   console.log('router ログイン必要 遷移不可');
-  //   next('/login')
-  // }
-  // if (to.matched.some(page => page.meta.isPublic) || Store.state.auth.token) {
-  //   next()
-  // } else {
-  //   next('/login')
-  // }
+  if (to.matched.some(page => page.meta.isPublic) || store.state.auth.token) {
+    next()
+  } else {
+    next('/login')
+  }
 })
 
 export default router

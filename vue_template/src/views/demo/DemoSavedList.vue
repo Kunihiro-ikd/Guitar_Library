@@ -1,12 +1,12 @@
 <template>
-<MainHeader></MainHeader>
+  <MainHeader></MainHeader>
+
   <div class="row">
     <div id="test1" class="col-12"></div>
     <div class="col-12 container">
-      <h3>Draggable </h3>
+      <h3>SavedCode </h3>
       <div>
         <button @click="logout" class="btn border">ログアウト</button>
-        <button @click="saveCode" class="btn border">保存</button>
       </div>
 
       <draggable
@@ -53,8 +53,8 @@
 
       </draggable>
     </div>
-    <div>配列</div>
-    <div>{{ list1 }}</div>
+    <div>配列 list2</div>
+    <div>{{ list2 }}</div>
 
   </div>
 </template>
@@ -101,6 +101,23 @@ export default {
     })
   },
   mounted() {
+    let data = {login: localStorage.getItem('login')}
+    axios.post('/get_list', data)
+      .then((response) => {
+        console.log('get_list!!');
+        console.log(response['data'][0]);
+        console.log(Object.keys(response['data']).length);
+        const getDate = new Date();
+        let random_id = getDate.getTime().toString(16);
+
+        for (let i = 0; i < Object.keys(response['data']).length; i++) {
+          console.log(response['data'][i])
+          this.list2.push({ "name": "Code" + i, "id": 100, "code": response['data'][i]['code_list'], "code_id": random_id + i },)
+        }
+        console.log('list2')
+        console.log(this.list2)
+      })
+
     let tbl     = document.createElement("table");
     let tblBody = document.createElement("tbody");
 
@@ -166,31 +183,16 @@ export default {
         data_list.push(this.list2[i]['code'])
       }
       const data = {code: data_list, login: localStorage.getItem('login')};
-      // バリデーション
-      if (data_list == []) {
-        alert('空は保存できません。')
-      } else {
-        axios.post('/save_code', data)
-        .then((response) => {
-          alert('保存しました');
-          console.log(response);
-        })
-        .catch(error => {
-          console.log('save_code!!Error');
-          console.log(error);
-        })
-      }
+      axios.post('/save_code', data)
+      .then((response) => {
+        alert('保存しました');
+        console.log(response);
+      })
+      .catch(error => {
+        console.log('save_code!!Error');
+        console.log(error);
+      })
     },
-    //初期化用
-    // codeInitialization() {
-    //   let previus_dlement = document.getElementById("draggaleCreateCode");
-
-    //   if (previus_dlement !== null) {
-    //     while (previus_dlement.firstChild) {
-    //       previus_dlement.removeChild(previus_dlement.firstChild);
-    //     }
-    //   }
-    // },
 
   makeCodeHtmlGuitar(cell_id) {
        //クリックされたセルのid の設定
@@ -215,6 +217,7 @@ export default {
       let random_id = getDate.getTime().toString(16);
 
       this.list1 = [];
+
       for (let i = 0; i < got_codes_list.length; i++) {
         this.list1.push({ name: 'Code' + i, id: 100, code: got_codes_list[i], code_id: random_id + 'Code' + i, code_id_clone: random_id + 'code_clone' + i});
       }
@@ -498,10 +501,6 @@ export default {
     endDrag() {
       console.log('update');
     },
-
-
-
-
   }
 };
 </script>

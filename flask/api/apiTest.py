@@ -3,36 +3,44 @@ import logging
 
 from sqlalchemy import create_engine, Column, Integer, String ,Text
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm.exc import NoResultFound
-# import cryptography
+
 
 # 認証 https://fabeee.co.jp/column/employee-blog/mattsun01/
 from fastapi import Depends, HTTPException
 from fastapi.security import OAuth2PasswordBearer
-from datetime import datetime, timedelta
 from jose import jwt
-
-
-
-from models.users import User 
+from sqlalchemy.orm import sessionmaker
 import config
 
-import os
-from models.database import db
+from datetime import datetime, timedelta
 
-db = declarative_base()
+from models import *
+# from models.users import User
+# from models.frases import Frase
+
+
+import os
+from models import db
+
+from models.frases import Frase
+from models.users import User
+import json
+
+
+# engine = create_engine('mysql+pymysql://{ikedak}:{vmdev}@{localhost}/{test1}?charset=utf8')
+# Session = sessionmaker(bind = engine)
+# app = Flask(__name__, static_folder='../vue_template/dist/static', template_folder='../vue_template/dist')
+# db = declarative_base()
 
 apiTest = Blueprint('testA', __name__, url_prefix='')
 
-app = Flask(__name__)
-LOGFILE_NAME = 'flask.log'
-app.logger.setLevel(logging.DEBUG)
-log_handler = logging.FileHandler(LOGFILE_NAME)
-log_handler.setLevel(logging.DEBUG)
-app.logger.addHandler(log_handler)
 
-
+# Session = sessionmaker()
+Session = sessionmaker(bind=config.DevelopmentConfig.SQLALCHEMY_DATABASE_URI)
+# db = Session()
+# デバック
+# app.logger.info('1111111111111')
 
 ######### 認証 #########
 # ペイロード作成
@@ -46,8 +54,7 @@ refresh_payload = {
     'exp': datetime.utcnow() + timedelta(days=90),
 }
 
-# セッションの保存時間
-app.permanent_session_lifetime = timedelta(minutes=10)
+
 
 # @apiTest.route('/')
 # def hello():
@@ -56,43 +63,61 @@ app.permanent_session_lifetime = timedelta(minutes=10)
 
 @apiTest.route('/login',  methods=["POST"])
 def login():
-    user = User.query.filter_by(login=request.get_json()['login']).first()
-    userName = session.get('userName')
-
-    # セッション 必要あれば
-    session['userName'] = request.get_json()['login']
+    # TODO バリデーション
+    user                = User.query.filter_by(login=request.get_json()['login']).first()
+    userName            = request.get_json()['login']
 
     if user and request.get_json()['password'] == user.password:
         # トークンの発行
         print('ログイン')
-        access_payload['login'] = request.get_json()['login']
+        session['login']        = request.get_json()['login']
         access_token            = jwt.encode(access_payload, 'SECRET_KEY123', algorithm='HS256')
         session['access_token'] = access_token
         result                  = {'success': 1, 'user': userName, 'access_token': access_token}
-
         return result
 
     else:
         print('ログイン失敗')
-        print(user)
-        print(request.get_json())
         # ログイン失敗
         # raise HTTPException(status_code=401, detail='パスワード不一致')
         result = {'success': 0, 'user': userName }
         return result
 
 
-@apiTest.route('/logout',  methods=["POST"])
+@apiTest.route('/logout', methods=["POST"])
 def logout():
-    response = {}
+    result = {'test': 'aaaa'}
     session.pop('username', None)
     session.pop('access_token',None)
-    return response
+    return result
 
-    # Session = sessionmaker(bind=config.DevelopmentConfig.SQLALCHEMY_DATABASE_URI)
-    # db_session = Session()
-    # text = request.get_json()['login']
 
-    # if db_session.query(User).filter_by(login=String(text)).one():
-    #     return {'login': 1}
-    # return {'login': 0}
+@apiTest.route('/save_code',  methods=["POST"])
+def savecode():
+    # eval(), json.dumps() で変換
+    print('SAVE CODE!!!!!!!!!!!!!!!!!!!!')
+    frase = Frase(name = 'コードの名前', code_list =json.dumps(request.get_json()['code']), user_id = 'user_id', login =request.get_json()['login'])
+    db.session.add(frase)
+    db.session.commit()
+    result = {'success': 1}
+    return result
+
+@apiTest.route('/get_list',  methods=["POST"])
+def getList():
+    # eval(), json.dumps() で変換
+    print('GET LIST!!!!!!!!!!!!!!!!!!!!')
+
+    frases = Frase.query.filter_by(login = 'ikeda').all()
+    test = Frase.query.all()
+
+    result = {}
+    for index, frase in enumerate(frases):
+        print(frase)
+        print(frase.name)
+        print(frase.code_list)
+        print(type(frase.code_list))
+        result[index] = {'code_name': frase.name, 'code_list': eval(frase.code_list)}
+
+    return result
+
+

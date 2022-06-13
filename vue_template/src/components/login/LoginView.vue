@@ -12,6 +12,8 @@
 
 <script>
   import axios from 'axios';
+  import router from '../../router/index.js';
+
   export default{
     name: 'LoginComponent',
     methods: {
@@ -22,7 +24,12 @@
             console.log(response.data);
             this.success = response;
             console.log('response');
+            localStorage.setItem('login', this.login);
             localStorage.setItem('accessToken', response.data.access_token);
+
+            // this.$router.push({'path': '/demo/create'})
+            router.push('/demo/create')
+
         })
         .catch(error => {
             console.log(error);
